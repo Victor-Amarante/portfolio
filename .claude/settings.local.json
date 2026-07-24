@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p src/assets/css src/assets/js src/assets/img)",
+      "Bash(cp FotoVictorAmaranteOFICIAL.jpg src/assets/img/victor.jpg)",
+      "Bash(cp CV_VictorAmarante_EN.pdf src/assets/CV_Victor_Amarante.pdf)",
+      "Bash(sips -g pixelWidth -g pixelHeight src/assets/img/victor.jpg)",
+      "Bash(sips -Z 1600 victor.jpg --out victor_web.jpg)",
+      "Bash(mv victor_web.jpg victor.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight victor.jpg)",
+      "Bash(cd /Users/victor/Desktop/projects/portfolio/src *)",
+      "Read(//Applications/Google Chrome.app/Contents/MacOS/**)"
+    ]
+  }
+}
