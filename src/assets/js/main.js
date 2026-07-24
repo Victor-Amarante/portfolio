@@ -315,6 +315,47 @@ const io = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-up').forEach(el => io.observe(el));
 
 /* ─────────────────────────────────────────────────────────
+   4b. TIMELINE — scroll-driven glowing progress line
+   (adapted from the Omi pipeline stroke-dashoffset reveal)
+   ───────────────────────────────────────────────────────── */
+(function () {
+  const timeline = document.getElementById('timeline');
+  const fill = document.getElementById('tlProgress');
+  if (!timeline || !fill) return;
+  const markers = Array.from(timeline.querySelectorAll('.tl-marker'));
+  const RAIL_TOP = 8, RAIL_PAD = 16; // top + (top+bottom) insets
+
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const rect = timeline.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const railHeight = timeline.offsetHeight - RAIL_PAD;
+
+    const start = rect.top - vh * 0.6;
+    const end = rect.bottom - vh * 0.5;
+    const total = end - start || 1;
+    const progress = Math.max(0, Math.min(1, -start / total));
+
+    const h = railHeight * progress;
+    fill.style.height = h + 'px';
+
+    const threshold = RAIL_TOP + h;
+    markers.forEach(m => {
+      const item = m.closest('.tl-item');
+      const cy = item.offsetTop + m.offsetTop + m.offsetHeight / 2;
+      m.classList.toggle('lit', cy <= threshold);
+    });
+  }
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+
+/* ─────────────────────────────────────────────────────────
    5. CONSENSUS — testimonials
    ══ EDIT HERE: paste each recommendation as an object.
       name     → who wrote it
