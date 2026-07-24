@@ -99,7 +99,7 @@ img{max-width:100%;display:block;}
 .btn-nav i{width:15px;height:15px;}
 .btn-nav-ghost{color:var(--text);border:1px solid rgba(255,255,255,0.12);}
 .btn-nav-ghost:hover{border-color:var(--border-l);color:var(--accent-light);background:rgba(20,184,166,0.06);}
-.btn-nav-solid{color:#04120f;background:linear-gradient(135deg,var(--accent-light),var(--accent));font-weight:600;box-shadow:0 0 22px -4px rgba(20,184,166,0.5);}
+.btn-nav-solid{color:#04120f;background:linear-gradient(135deg,var(--accent-light),var(--accent));font-weight:600;box-shadow:0 0 14px -8px rgba(20,184,166,0.35);}
 .btn-nav-solid:hover{filter:brightness(1.1);transform:translateY(-1px);}
 .nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
 .nav-hamburger span{width:22px;height:1.6px;background:var(--text);border-radius:2px;transition:.3s var(--ease-out);}
@@ -158,8 +158,8 @@ img{max-width:100%;display:block;}
 .hero-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:64px;}
 .btn-hero-primary,.btn-hero-ghost{display:inline-flex;align-items:center;gap:10px;font-size:0.9rem;font-weight:500;border-radius:999px;padding:14px 28px;transition:.35s var(--ease-out);cursor:pointer;}
 .btn-hero-primary i,.btn-hero-ghost i{width:17px;height:17px;}
-.btn-hero-primary{color:#04120f;background:linear-gradient(135deg,var(--accent-glow),var(--accent) 60%,var(--accent-dark));font-weight:600;box-shadow:0 0 40px -6px rgba(20,184,166,0.55);}
-.btn-hero-primary:hover{transform:translateY(-2px);box-shadow:0 0 55px -6px rgba(20,184,166,0.75);}
+.btn-hero-primary{color:#04120f;background:linear-gradient(135deg,var(--accent-glow),var(--accent) 60%,var(--accent-dark));font-weight:600;box-shadow:0 0 26px -12px rgba(20,184,166,0.35);}
+.btn-hero-primary:hover{transform:translateY(-2px);box-shadow:0 0 34px -12px rgba(20,184,166,0.45);}
 .btn-hero-ghost{color:var(--text);border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.02);}
 .btn-hero-ghost:hover{border-color:var(--border-l);color:var(--accent-light);background:rgba(20,184,166,0.06);}
 
