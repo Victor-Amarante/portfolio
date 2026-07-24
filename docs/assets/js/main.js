@@ -467,10 +467,12 @@ const TESTIMONIALS = [
 })();
 
 /* ─────────────────────────────────────────────────────────
-   6. WAVE — animated dot grid behind consensus (Three.js)
+   6. WAVE — global animated dot-grid backdrop (Three.js)
+   Fixed behind every section; hero & globe cover it with an
+   opaque background so it only shows on the sections between.
    ───────────────────────────────────────────────────────── */
 (function () {
-  const container = document.getElementById('wave-bg');
+  const container = document.getElementById('site-wave');
   if (!container) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
