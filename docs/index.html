@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Victor Amarante — Senior AI/ML Engineer</title>
+    <title>Victor Amarante — Senior Machine Learning Engineer</title>
     <meta
       name="description"
-      content="Victor Amarante — Senior AI/ML Engineer specializing in multi-agent systems, RAG & GraphRAG architectures, LLMs and LLMOps. Building production-grade AI from research to scale."
+      content="Victor Amarante — Senior Machine Learning Engineer specializing in LLMs & agentic systems: multi-agent architectures, RAG & GraphRAG, LLMOps. A statistics foundation applied to production ML at scale."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,12 +31,27 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="nav-cta">
-        <a
-          href="assets/CV_Victor_Amarante.pdf"
-          download
-          class="btn-nav btn-nav-ghost"
-          ><i data-lucide="download"></i>Résumé</a
-        >
+        <div class="cv-menu">
+          <button
+            type="button"
+            class="btn-nav btn-nav-ghost cv-menu-btn"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i data-lucide="download"></i>Résumé<i
+              data-lucide="chevron-down"
+              class="cv-caret"
+            ></i>
+          </button>
+          <div class="cv-menu-panel">
+            <a href="assets/curriculum/CV_VictorAmarante_EN.pdf" download
+              ><span class="cv-lang">EN</span>English</a
+            >
+            <a href="assets/curriculum/CV_VictorAmarante_PTBR.pdf" download
+              ><span class="cv-lang">PT</span>Português (BR)</a
+            >
+          </div>
+        </div>
         <a href="#contact" class="btn-nav btn-nav-solid">Let's talk</a>
       </div>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu">
@@ -51,13 +66,20 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a
-        href="assets/CV_Victor_Amarante.pdf"
-        download
-        class="btn-nav btn-nav-solid"
-        style="margin-top: 24px"
-        >Download Résumé</a
-      >
+      <div class="nav-mobile-cv">
+        <a
+          href="assets/curriculum/CV_VictorAmarante_EN.pdf"
+          download
+          class="btn-nav btn-nav-solid"
+          ><i data-lucide="download"></i>Résumé · EN</a
+        >
+        <a
+          href="assets/curriculum/CV_VictorAmarante_PTBR.pdf"
+          download
+          class="btn-nav btn-nav-ghost"
+          ><i data-lucide="download"></i>Currículo · PT</a
+        >
+      </div>
     </div>
 
     <!-- ═══════════════ HERO ═══════════════ -->
@@ -89,8 +111,8 @@
       </div>
       <div class="hero-content">
         <div class="hero-eyebrow">
-          <span class="pulse-dot"></span>Senior AI / ML Engineer · 5+ years in
-          production
+          <span class="pulse-dot"></span>Senior Machine Learning Engineer · 5+
+          years in production
         </div>
         <h1 class="hero-title">
           Engineering intelligence,<br /><span class="text-gradient"
@@ -98,10 +120,10 @@
           >
         </h1>
         <p class="hero-subtitle">
-          I design and ship production-grade AI systems grounded in a rigorous
-          foundation of statistics and applied mathematics. Not an engineer who
-          learned LLM APIs: an ML practitioner who adopted LLMs as the next
-          layer of intelligent systems.
+          I build LLM-powered and agentic systems on a real mathematical
+          foundation — statistics, probability and applied ML — and take them
+          all the way to production: orchestration, retrieval, evaluation and
+          observability at scale.
         </p>
         <div class="hero-ctas">
           <a href="#projects" class="btn-hero-primary"
@@ -178,7 +200,11 @@
           ><span class="logo-item">FastAPI</span
           ><span class="logo-item">Docker</span
           ><span class="logo-item">Kubernetes</span
-          ><span class="logo-item">LangSmith</span>
+          ><span class="logo-item">LangSmith</span
+          ><span class="logo-item">OpenTelemetry</span
+          ><span class="logo-item">MCP</span
+          ><span class="logo-item">A2A</span
+          ><span class="logo-item">LoRA</span>
           <span class="logo-item">Python</span
           ><span class="logo-item">NumPy</span
           ><span class="logo-item">Pandas</span
@@ -211,7 +237,11 @@
           ><span class="logo-item">FastAPI</span
           ><span class="logo-item">Docker</span
           ><span class="logo-item">Kubernetes</span
-          ><span class="logo-item">LangSmith</span>
+          ><span class="logo-item">LangSmith</span
+          ><span class="logo-item">OpenTelemetry</span
+          ><span class="logo-item">MCP</span
+          ><span class="logo-item">A2A</span
+          ><span class="logo-item">LoRA</span>
         </div>
       </div>
     </section>
@@ -245,34 +275,38 @@
             <span class="text-gradient">builds systems that ship.</span>
           </h2>
           <p class="about-lead">
-            I'm Victor Amarante — a Senior AI/ML Engineer with a rare dual
-            foundation: formal training in
-            <strong>Statistics</strong> (probability, linear algebra, numerical
-            calculus) and Information Systems engineering. That combination lets
-            me move fluidly between applied research and production engineering.
+            I'm Victor Amarante — a Senior Machine Learning Engineer working on
+            <strong>LLMs &amp; agentic systems</strong>. I started in
+            <strong>Statistics</strong> at UFPE's CCEN — probability, linear
+            algebra, numerical calculus — and transferred to Information Systems
+            at the <strong>CIn/UFPE</strong> to pair that math with real systems
+            engineering.
           </p>
           <p>
-            My path evolved naturally — classical machine learning, deep
-            learning, and into the current frontier of LLM-powered systems and
-            agentic architectures. I've taken these systems from whiteboard to
-            production at scale across
-            <strong>healthcare, fintech, legal, and logistics</strong> — with
-            the mathematical depth to understand what happens inside a model and
-            the engineering discipline to build things that scale.
+            The progression was a natural one: statistics → classical machine
+            learning → deep learning → LLMs → agentic systems. Each layer still
+            runs underneath the next. It's why I can reason about what actually
+            happens inside a model <em>and</em> put it in production across
+            <strong>healthcare, fintech, legal and logistics</strong>.
+          </p>
+          <p>
+            Today my focus is autonomous intelligent systems: LLM
+            orchestration, agentic workflows, and RAG/GraphRAG retrieval — built
+            to be observable, evaluated and reliable under real traffic.
           </p>
           <div class="about-facts">
             <div class="about-fact">
               <i data-lucide="graduation-cap"></i>
               <div>
-                <strong>Dual B.Sc.</strong
-                ><span>Information Systems &amp; Statistics — UFPE</span>
+                <strong>Education</strong
+                ><span>Information Systems @ CIn/UFPE · from Statistics</span>
               </div>
             </div>
             <div class="about-fact">
               <i data-lucide="brain-circuit"></i>
               <div>
                 <strong>Specialization</strong
-                ><span>Multi-agent · RAG/GraphRAG · LLMOps</span>
+                ><span>LLMs &amp; Agentic Systems · RAG/GraphRAG</span>
               </div>
             </div>
             <div class="about-fact">
@@ -286,7 +320,7 @@
               <i data-lucide="languages"></i>
               <div>
                 <strong>Currently</strong
-                ><span>Senior AI/ML Engineer @ Getronics</span>
+                ><span>Senior ML Engineer @ Getronics · AI Researcher @ CIn</span>
               </div>
             </div>
           </div>
@@ -392,7 +426,7 @@
                 ><span class="int-badge">Pandas</span
                 ><span class="int-badge">NumPy</span
                 ><span class="int-badge">MLflow</span
-                ><span class="int-badge">Power BI</span>
+                ><span class="int-badge">Time Series</span>
               </div>
             </div>
           </div>
@@ -409,14 +443,15 @@
             <div class="bc-body">
               <p>
                 Neural networks and language. Embeddings, tokenization and
-                fine-tuning — plus computer vision: YOLO detection and VLMs
-                generating structured diagnostic reports.
+                LoRA fine-tuning of small language models — plus computer
+                vision: YOLO detection and VLMs generating structured
+                diagnostic reports.
               </p>
               <div class="bento-tags">
                 <span class="int-badge">PyTorch</span
                 ><span class="int-badge">TensorFlow</span
+                ><span class="int-badge">LoRA</span
                 ><span class="int-badge">spaCy</span
-                ><span class="int-badge">NLTK</span
                 ><span class="int-badge">YOLO</span>
               </div>
             </div>
@@ -668,8 +703,8 @@
           </h2>
           <p>
             Five years across financial institutions, healthcare, R&amp;D
-            centers and legal — always owning the full lifecycle from conception
-            to production monitoring.
+            centers and legal — always owning the full model lifecycle, from
+            conception to production monitoring.
           </p>
         </div>
         <div class="timeline" id="timeline">
@@ -679,7 +714,7 @@
             <div class="tl-card">
               <div class="tl-top">
                 <div>
-                  <h3 class="tl-role">Senior AI/ML Engineer</h3>
+                  <h3 class="tl-role">Senior Machine Learning Engineer</h3>
                   <span class="tl-company">Getronics · Amsterdam (Remote)</span>
                 </div>
                 <span class="tl-date tl-now">May 2026 — Present</span>
@@ -687,31 +722,35 @@
               <p class="tl-desc">
                 Embedded in a high-seniority squad at one of Brazil's largest
                 financial institutions, owning the full AI model lifecycle for a
-                digital assistant in the card-services domain.
+                card-services digital assistant designed to reach
+                <strong>millions of users</strong> at launch.
               </p>
               <ul class="tl-points">
                 <li>
-                  Design autonomous agents orchestrating LLMs and complex flows
-                  with LangChain &amp; LangGraph.
+                  Architected a multi-agent system — orchestrator + specialist
+                  agent as independent microservices communicating over the
+                  <strong>A2A protocol</strong>.
                 </li>
                 <li>
-                  Build REST APIs with MCP &amp; A2A integrations; deploy
-                  cloud-native on Docker &amp; Kubernetes.
+                  Built tool and service integrations through
+                  <strong>MCP &amp; A2A</strong>; deployed cloud-native on
+                  Docker &amp; Kubernetes.
                 </li>
                 <li>
-                  Drive prompt engineering, AI safety guardrails, PII handling
-                  and compliance for financial regulation.
+                  Owned AI compliance: input/output filtering, PII handling and
+                  Brazilian financial-sector regulation.
                 </li>
                 <li>
-                  Ensure observability &amp; operational reliability via
-                  OpenTelemetry.
+                  Instrumented observability and operational reliability with
+                  <strong>OpenTelemetry</strong>.
                 </li>
               </ul>
               <div class="tl-tags">
-                <span class="int-badge">LangGraph</span
+                <span class="int-badge">Multi-Agent</span
+                ><span class="int-badge">A2A</span
                 ><span class="int-badge">MCP</span
                 ><span class="int-badge">Kubernetes</span
-                ><span class="int-badge">AI Safety</span>
+                ><span class="int-badge">OpenTelemetry</span>
               </div>
             </div>
           </div>
@@ -721,9 +760,53 @@
             <div class="tl-card">
               <div class="tl-top">
                 <div>
-                  <h3 class="tl-role">
-                    Mid-Level AI &amp; Machine Learning Engineer
-                  </h3>
+                  <h3 class="tl-role">AI Researcher</h3>
+                  <span class="tl-company"
+                    >CIn/UFPE · Zup Innovation · Recife, Brazil</span
+                  >
+                </div>
+                <span class="tl-date tl-now">Mar 2026 — Present</span>
+              </div>
+              <p class="tl-desc">
+                Research on <em>Role-Specialized Small Language Models for
+                End-to-End Spec-Driven Software Development</em> — can SLMs
+                (≤10B params) fine-tuned per agent role match frontier LLMs on a
+                complete software-development pipeline?
+              </p>
+              <ul class="tl-points">
+                <li>
+                  Fine-tuning small language models via <strong>LoRA</strong>,
+                  one specialization per agent role, benchmarked against
+                  frontier models.
+                </li>
+                <li>
+                  Built <strong>Zup SDD Agents</strong>: a ~19-node LangGraph
+                  state machine that turns a User Story into working, committed
+                  code.
+                </li>
+                <li>
+                  Designed a dual quality gate — technical verification kept
+                  separate from business curation.
+                </li>
+                <li>
+                  Human-in-the-loop checkpoints via LangGraph interrupts.
+                </li>
+              </ul>
+              <div class="tl-tags">
+                <span class="int-badge">SLMs</span
+                ><span class="int-badge">LoRA</span
+                ><span class="int-badge">LangGraph</span
+                ><span class="int-badge">Spec-Driven Dev</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-item reveal">
+            <div class="tl-marker"></div>
+            <div class="tl-card">
+              <div class="tl-top">
+                <div>
+                  <h3 class="tl-role">Machine Learning Engineer</h3>
                   <span class="tl-company">Amigo Tech · Recife, Brazil</span>
                 </div>
                 <span class="tl-date">Sep 2025 — May 2026</span>
@@ -740,15 +823,16 @@
                 </li>
                 <li>
                   Redesigned core architecture around a multi-agent pattern →
-                  <strong>~90%</strong> improvement in response quality.
+                  <strong>~90%</strong> improvement in production response
+                  quality.
                 </li>
                 <li>
-                  Initiated a medical-imaging pipeline: YOLO object detection on
-                  dental X-rays + a VLM for structured diagnostic reports.
+                  Built a medical-imaging pipeline: YOLO detection on dental
+                  X-rays + a VLM generating natural-language diagnostic reports.
                 </li>
                 <li>
-                  Built containerized microservices (FastAPI, Docker) with
-                  LangSmith tracing.
+                  Shipped containerized microservices (FastAPI, Docker) with
+                  LangSmith monitoring.
                 </li>
               </ul>
               <div class="tl-tags">
@@ -765,7 +849,7 @@
             <div class="tl-card">
               <div class="tl-top">
                 <div>
-                  <h3 class="tl-role">Machine Learning Engineer</h3>
+                  <h3 class="tl-role">Data Scientist</h3>
                   <span class="tl-company">C.E.S.A.R · Recife, Brazil</span>
                 </div>
                 <span class="tl-date">Jul 2024 — Sep 2025</span>
@@ -776,20 +860,21 @@
               </p>
               <ul class="tl-points">
                 <li>
-                  Designed a GenAI chatbot &amp; semantic search with Django,
+                  Designed a corporate knowledge-retrieval system with GenAI —
                   LangChain/LangGraph, PostgreSQL &amp; pgvector.
                 </li>
                 <li>
-                  Built a Neo4j graph database + GraphRAG combining vector
-                  search with entity-relationship traversal.
+                  Built <strong>GraphRAG on Neo4j</strong> for a logistics
+                  platform, combining vector search with entity-relationship
+                  traversal.
                 </li>
                 <li>
                   Deployed pipelines on AWS (S3, SageMaker, Bedrock) &amp; GCP
                   Vertex AI; followed Hexagonal Architecture &amp; DDD.
                 </li>
                 <li>
-                  Delivered 20+ hours of in-person data-analysis training for
-                  SEBRAE analysts.
+                  Delivered 20+ hours of in-person data training for SEBRAE
+                  analysts.
                 </li>
               </ul>
               <div class="tl-tags">
@@ -806,7 +891,7 @@
             <div class="tl-card">
               <div class="tl-top">
                 <div>
-                  <h3 class="tl-role">ML Engineer &amp; Data Scientist</h3>
+                  <h3 class="tl-role">Data Scientist</h3>
                   <span class="tl-company"
                     >Queiroz Cavalcanti Advocacia · Recife</span
                   >
@@ -814,22 +899,26 @@
                 <span class="tl-date">Nov 2022 — Jun 2024</span>
               </div>
               <p class="tl-desc">
-                Predictive ML pipelines for Legal Controlling and early
-                generative-AI prototypes.
+                Predictive ML pipelines for Legal Controlling and the firm's
+                first generative-AI prototypes.
               </p>
               <ul class="tl-points">
                 <li>
                   Time-series forecasting &amp; classification (Scikit-learn,
                   Pandas, NumPy) with <strong>90%+</strong> efficiency gains
-                  across 50+ automation projects.
+                  across <strong>50+ projects</strong>.
                 </li>
                 <li>
-                  Built Power BI dashboards &amp; statistical models for
-                  strategic KPI monitoring.
+                  Averaged <strong>3–4 hours saved per case</strong> — up to
+                  <strong>90 hours/month</strong> on a single initiative.
                 </li>
                 <li>
-                  Led an internal data-science training program — 80%+ adoption
-                  across 40+ professionals.
+                  Led an internal training program — 80%+ adoption across 40+
+                  professionals.
+                </li>
+                <li>
+                  Prototyped early GenAI use cases: meeting summarization and
+                  email prioritization.
                 </li>
               </ul>
               <div class="tl-tags">
@@ -845,9 +934,7 @@
             <div class="tl-card">
               <div class="tl-top">
                 <div>
-                  <h3 class="tl-role">
-                    Data Scientist &amp; Statistical Consultant
-                  </h3>
+                  <h3 class="tl-role">Data Scientist</h3>
                   <span class="tl-company"
                     >Fisher Consultoria Estatística · Recife</span
                   >
@@ -855,17 +942,17 @@
                 <span class="tl-date">Jul 2021 — Jul 2023</span>
               </div>
               <p class="tl-desc">
-                End-to-end statistical consulting — from problem modeling with
-                clients to analysis and formal report delivery.
+                Where the career started — the mathematical foundation applied
+                to real problems, end to end.
               </p>
               <ul class="tl-points">
                 <li>
-                  Applied statistical modeling, sampling and EDA to quantitative
-                  problems across domains.
+                  Delivered <strong>10+ complete statistical consulting
+                  projects</strong> for healthcare clients.
                 </li>
                 <li>
-                  Owned project scoping, pricing and client communication across
-                  the full lifecycle.
+                  Statistical modeling, sampling and EDA — from problem framing
+                  with the client to the formal report.
                 </li>
               </ul>
               <div class="tl-tags">
@@ -936,11 +1023,110 @@
             Things I've designed <span class="text-gradient">and shipped</span>
           </h2>
           <p>
-            A sample of applied AI work — from real-time conversational agents
-            to voice-driven analytics.
+            The systems I'm proudest of — multi-agent pipelines and retrieval
+            architectures running in production, plus open-source work you can
+            read end to end.
           </p>
         </div>
         <div class="projects-grid stagger-up">
+          <div class="project-card project-card-static reveal-child">
+            <div class="pc-grid"></div>
+            <div class="project-top">
+              <div class="project-index">01</div>
+              <span class="project-flag">Research</span>
+            </div>
+            <h3 class="project-title">Zup SDD Agents</h3>
+            <p class="project-sub">
+              Spec-driven development as a multi-agent pipeline
+            </p>
+            <p class="project-desc">
+              A ~19-node LangGraph state machine that carries a User Story all
+              the way to committed code — role-specialized agents, a dual
+              quality gate separating technical verification from business
+              curation, and human-in-the-loop interrupts. Built at CIn/UFPE with
+              Zup Innovation.
+            </p>
+            <div class="project-tags">
+              <span class="int-badge">LangGraph</span
+              ><span class="int-badge">SLMs</span
+              ><span class="int-badge">LoRA</span
+              ><span class="int-badge">Multi-Agent</span>
+            </div>
+          </div>
+
+          <div class="project-card project-card-static reveal-child">
+            <div class="pc-grid"></div>
+            <div class="project-top">
+              <div class="project-index">02</div>
+              <span class="project-flag">Production</span>
+            </div>
+            <h3 class="project-title">Amigo Flow</h3>
+            <p class="project-sub">
+              Supervised multi-agent system for the patient journey
+            </p>
+            <p class="project-desc">
+              Orchestrator and specialist agents covering scheduling,
+              confirmation and triage across tens of thousands of monthly
+              appointments — <strong>7.5×</strong> automated scheduling,
+              <strong>200%+</strong> confirmation rate and
+              <strong>~90%</strong> better response quality after the
+              multi-agent redesign.
+            </p>
+            <div class="project-tags">
+              <span class="int-badge">Multi-Agent</span
+              ><span class="int-badge">LangGraph</span
+              ><span class="int-badge">LangSmith</span
+              ><span class="int-badge">FastAPI</span>
+            </div>
+          </div>
+
+          <div class="project-card project-card-static reveal-child">
+            <div class="pc-grid"></div>
+            <div class="project-top">
+              <div class="project-index">03</div>
+              <span class="project-flag">Production</span>
+            </div>
+            <h3 class="project-title">GraphRAG for Logistics</h3>
+            <p class="project-sub">
+              Knowledge graph + vector search over siloed data
+            </p>
+            <p class="project-desc">
+              A Neo4j knowledge graph paired with vector retrieval so a
+              logistics platform could answer questions that span systems —
+              entity-relationship traversal where flat semantic search returned
+              fragments. Delivered at C.E.S.A.R.
+            </p>
+            <div class="project-tags">
+              <span class="int-badge">GraphRAG</span
+              ><span class="int-badge">Neo4j</span
+              ><span class="int-badge">pgvector</span
+              ><span class="int-badge">Bedrock</span>
+            </div>
+          </div>
+
+          <div class="project-card project-card-static reveal-child">
+            <div class="pc-grid"></div>
+            <div class="project-top">
+              <div class="project-index">04</div>
+              <span class="project-flag">1st · PoloTec 2024</span>
+            </div>
+            <h3 class="project-title">Redduo.AI</h3>
+            <p class="project-sub">
+              LLM-based essay grading for Brazil's ENEM
+            </p>
+            <p class="project-desc">
+              An AI platform that grades ENEM essays against the exam's five
+              official competencies and returns structured feedback — first
+              place at the PoloTec Pre-Incubation &amp; DemoDay 2024.
+            </p>
+            <div class="project-tags">
+              <span class="int-badge">LLMs</span
+              ><span class="int-badge">Prompt Engineering</span
+              ><span class="int-badge">Evals</span
+              ><span class="int-badge">Python</span>
+            </div>
+          </div>
+
           <a
             class="project-card reveal-child"
             href="https://github.com/Victor-Amarante/conecte.se"
@@ -949,7 +1135,7 @@
           >
             <div class="pc-grid"></div>
             <div class="project-top">
-              <div class="project-index">01</div>
+              <div class="project-index">05</div>
               <i data-lucide="arrow-up-right" class="project-arrow"></i>
             </div>
             <h3 class="project-title">Conecte.se</h3>
@@ -977,7 +1163,7 @@
           >
             <div class="pc-grid"></div>
             <div class="project-top">
-              <div class="project-index">02</div>
+              <div class="project-index">06</div>
               <i data-lucide="arrow-up-right" class="project-arrow"></i>
             </div>
             <h3 class="project-title">InsightTalk.AI</h3>
@@ -992,62 +1178,6 @@
               ><span class="int-badge">Whisper</span
               ><span class="int-badge">TTS</span
               ><span class="int-badge">FastAPI</span>
-            </div>
-          </a>
-
-          <a
-            class="project-card reveal-child"
-            href="https://github.com/Victor-Amarante/rag-langchain-chatpdf"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="pc-grid"></div>
-            <div class="project-top">
-              <div class="project-index">03</div>
-              <i data-lucide="arrow-up-right" class="project-arrow"></i>
-            </div>
-            <h3 class="project-title">KnowBot</h3>
-            <p class="project-sub">
-              Intelligent RAG chatbot for academic support
-            </p>
-            <p class="project-desc">
-              A production-oriented RAG pipeline with PDF semantic ingestion,
-              vector search and scalable API services for document-based AI
-              dialogue — built for reuse in educational platforms.
-            </p>
-            <div class="project-tags">
-              <span class="int-badge">RAG</span
-              ><span class="int-badge">LangChain</span
-              ><span class="int-badge">OpenAI</span
-              ><span class="int-badge">Python</span>
-            </div>
-          </a>
-
-          <a
-            class="project-card reveal-child"
-            href="https://github.com/Victor-Amarante/whisper-openai-transcription"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="pc-grid"></div>
-            <div class="project-top">
-              <div class="project-index">04</div>
-              <i data-lucide="arrow-up-right" class="project-arrow"></i>
-            </div>
-            <h3 class="project-title">TalkScribe</h3>
-            <p class="project-sub">
-              AI meeting transcription &amp; insight generation
-            </p>
-            <p class="project-desc">
-              High-accuracy meeting transcription and insight extraction with
-              OpenAI Whisper and automatic summarization — automating manual
-              documentation for faster post-meeting decisions.
-            </p>
-            <div class="project-tags">
-              <span class="int-badge">Whisper</span
-              ><span class="int-badge">Streamlit</span
-              ><span class="int-badge">PyDub</span
-              ><span class="int-badge">Python</span>
             </div>
           </a>
         </div>
@@ -1165,9 +1295,9 @@
             >
           </h2>
           <p class="contact-sub">
-            I'm open to senior and staff-level AI/ML roles and select
-            collaborations. If you're building agentic systems, retrieval
-            infrastructure, or anything at the frontier — let's talk.
+            I'm open to senior and staff-level machine learning engineering
+            roles and select collaborations. If you're building agentic systems,
+            retrieval infrastructure, or anything at the frontier — let's talk.
           </p>
           <div class="contact-actions">
             <a
@@ -1175,12 +1305,27 @@
               class="btn-hero-primary"
               ><i data-lucide="mail"></i>victoramarante.tech@gmail.com</a
             >
-            <a
-              href="assets/CV_Victor_Amarante.pdf"
-              download
-              class="btn-hero-ghost"
-              ><i data-lucide="download"></i>Download résumé</a
-            >
+            <div class="cv-menu cv-menu-lg">
+              <button
+                type="button"
+                class="btn-hero-ghost cv-menu-btn"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i data-lucide="download"></i>Download résumé<i
+                  data-lucide="chevron-down"
+                  class="cv-caret"
+                ></i>
+              </button>
+              <div class="cv-menu-panel">
+                <a href="assets/curriculum/CV_VictorAmarante_EN.pdf" download
+                  ><span class="cv-lang">EN</span>English</a
+                >
+                <a href="assets/curriculum/CV_VictorAmarante_PTBR.pdf" download
+                  ><span class="cv-lang">PT</span>Português (BR)</a
+                >
+              </div>
+            </div>
           </div>
           <div class="contact-socials">
             <a
@@ -1231,8 +1376,8 @@
         <div class="footer-brand">
           <a href="#hero" class="nav-logo">Victor<span>Amarante</span></a>
           <p>
-            Senior AI/ML Engineer — multi-agent systems, RAG/GraphRAG and
-            LLMOps, from research to production scale.
+            Senior Machine Learning Engineer — LLMs &amp; agentic systems,
+            RAG/GraphRAG and LLMOps, from research to production scale.
           </p>
         </div>
         <div class="footer-right">

@@ -549,7 +549,42 @@ const TESTIMONIALS = [
 })();
 
 /* ─────────────────────────────────────────────────────────
-   7. Dynamic year + Lucide icons
+   7. Résumé language menu (EN / PT-BR)
+   ───────────────────────────────────────────────────────── */
+(() => {
+  const menus = Array.from(document.querySelectorAll('.cv-menu'));
+  if (!menus.length) return;
+
+  const close = (menu) => {
+    menu.classList.remove('open');
+    menu.querySelector('.cv-menu-btn').setAttribute('aria-expanded', 'false');
+  };
+
+  menus.forEach(menu => {
+    const btn = menu.querySelector('.cv-menu-btn');
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const wasOpen = menu.classList.contains('open');
+      menus.forEach(close);
+      if (!wasOpen) {
+        menu.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+    // keep the panel from closing itself before the download fires
+    menu.querySelectorAll('.cv-menu-panel a').forEach(a => {
+      a.addEventListener('click', () => close(menu));
+    });
+  });
+
+  document.addEventListener('click', () => menus.forEach(close));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') menus.forEach(close);
+  });
+})();
+
+/* ─────────────────────────────────────────────────────────
+   8. Dynamic year + Lucide icons
    ───────────────────────────────────────────────────────── */
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();

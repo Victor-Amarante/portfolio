@@ -1,0 +1,45 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this repo is
+
+Victor Amarante's personal portfolio site — a single-page static site (English) presenting him as a Senior AI/ML Engineer. No framework, no build step, no package.json: hand-written HTML/CSS/vanilla JS deployed as-is.
+
+## Serving & deploying
+
+- **Deployment:** GitHub Pages, source = `main` branch, folder = `/docs`. The `.nojekyll` marker in `docs/` disables Jekyll processing. Any change to files under `docs/` is what actually ships.
+- **Local preview:** just open `docs/index.html` in a browser, or `python3 -m http.server 8000 --directory docs` and visit `http://localhost:8000/`. Reload = deploy.
+- **The three `*.aura.build/` folders at repo root are gitignored reference sites** (Cadence, Omi's "ai-social-automation", "ai-intelligence-saas") kept locally as design inspiration. They are NOT part of the deployed site — do not edit them expecting changes to appear, and do not add them to git.
+
+## Architecture
+
+Everything user-facing lives in three files:
+
+- `docs/index.html` (~1.3k lines) — every section inline, ordered top-to-bottom: Nav → Hero → Trust marquee → About → Expertise (bento grid) → Globe/Intelligence layer → Impact metrics → Experience (timeline) → Projects → Certifications → Consensus (testimonials) → Contact → Footer. Sections are delimited by `<!-- ═══ NAME ═══ -->` banner comments — use these to navigate.
+- `docs/assets/css/styles.css` — design tokens in `:root` (`--bg-0`, `--accent`, `--accent-light`, `--font-body`, `--maxw`, etc.) drive the entire teal-on-near-black theme distilled from the aura.build reference sites. Change the theme by editing tokens, not individual selectors.
+- `docs/assets/js/main.js` — eight numbered IIFEs, each a self-contained interactive piece:
+  1. Hero WebGL aurora/plasma shader (`#heroCanvas`, cursor-reactive fbm noise).
+  2. Canvas-2D fibonacci-sphere globe with orbital rings and animated arcs (`#hero-globe`).
+  3. Nav scroll state + mobile hamburger.
+  4. `IntersectionObserver` scroll-reveal for `.reveal`, `.reveal-left`, `.reveal-right`, `.stagger-up`.
+  4b. Timeline scroll-driven progress fill (`#timeline` / `#tlProgress`) — lights `.tl-marker` elements as they pass a scroll-derived threshold.
+  5. Testimonials carousel — content is a hardcoded `TESTIMONIALS` array (~line 365) with a header comment explaining the schema; **edit that array to add/remove testimonials**, DOM is generated from it.
+  6. Global Three.js dot-wave backdrop (`#site-wave`) — Three r128 is lazy-loaded from cdnjs on first use; skipped entirely when `prefers-reduced-motion: reduce`.
+  7. Résumé language dropdown (`.cv-menu`) — click-to-open EN/PT-BR menu, used in the nav and in Contact; closes on outside click, Escape, or selection.
+  8. Sets the copyright year and calls `lucide.createIcons()`.
+
+Each IIFE early-returns if its anchor element is missing, so sections can be safely removed from `index.html` without JS errors.
+
+## External runtime dependencies (CDN, no install)
+
+- Google Fonts: Inter (body) + Outfit (display).
+- Lucide icons via `unpkg.com/lucide@latest` — icons use `<i data-lucide="name"></i>`.
+- Three.js r128 via cdnjs — only fetched by IIFE #6 when the wave backdrop initializes.
+
+## Conventions worth knowing
+
+- Text content lives directly in `index.html`. There is no CMS or data file — copy edits mean editing the HTML.
+- Testimonials are the one exception: they live as JS objects in `main.js` (see the `EDIT HERE` comment above the `TESTIMONIALS` array).
+- Colors: near-black backgrounds `#060610`/`#0A0A18`, teal accents `#14B8A6` / `#2DD4BF` / `#5EEAD4`. Hardcoded in shaders and canvas code (not just the CSS tokens), so a rebrand touches all three files.
+- The résumés live in `docs/assets/curriculum/`: `CV_VictorAmarante_EN.pdf` and `CV_VictorAmarante_PTBR.pdf`. Both are exposed through the `.cv-menu` language dropdown (nav + Contact) — if the filenames change, update the two `.cv-menu-panel` blocks and the `.nav-mobile-cv` pair in `index.html`.
