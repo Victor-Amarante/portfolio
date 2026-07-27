@@ -3,6 +3,45 @@
    ============================================================ */
 
 /* ─────────────────────────────────────────────────────────
+   0. THEME — dark (default) / light
+   The CSS side is driven entirely by [data-theme] on <html>.
+   The three canvases can't read CSS tokens, so they subscribe
+   to the `themechange` event and re-read Theme.isLight().
+   The initial value is applied by an inline script in <head>
+   so there's no flash of the wrong theme before this file runs.
+   ───────────────────────────────────────────────────────── */
+const Theme = (() => {
+  const root = document.documentElement;
+  const KEY = 'va-theme';
+
+  const isLight = () => root.getAttribute('data-theme') === 'light';
+
+  function apply(name, persist) {
+    if (name === 'light') root.setAttribute('data-theme', 'light');
+    else root.removeAttribute('data-theme');
+    if (persist) {
+      try { localStorage.setItem(KEY, name); } catch (e) { /* private mode */ }
+    }
+    window.dispatchEvent(new CustomEvent('themechange', { detail: { light: name === 'light' } }));
+  }
+
+  const btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.addEventListener('click', () => apply(isLight() ? 'dark' : 'light', true));
+  }
+
+  // follow the OS only while the visitor hasn't picked a side
+  const mq = window.matchMedia('(prefers-color-scheme: light)');
+  mq.addEventListener('change', (e) => {
+    let stored = null;
+    try { stored = localStorage.getItem(KEY); } catch (err) { /* ignore */ }
+    if (!stored) apply(e.matches ? 'light' : 'dark', false);
+  });
+
+  return { isLight, apply };
+})();
+
+/* ─────────────────────────────────────────────────────────
    1. HERO — WebGL cursor-reactive aurora/plasma shader
    (adapted from the Cadence hero canvas)
    ───────────────────────────────────────────────────────── */
@@ -26,7 +65,7 @@
   const VERT = `attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}`;
   const FRAG = `
 precision highp float;
-uniform float u_t; uniform vec2 u_r; uniform vec2 u_m;
+uniform float u_t; uniform vec2 u_r; uniform vec2 u_m; uniform float u_light;
 vec3 mod289(vec3 x){return x-floor(x*(1./289.))*289.;}
 vec4 mod289(vec4 x){return x-floor(x*(1./289.))*289.;}
 vec4 perm(vec4 x){return mod289(((x*34.)+1.)*x);}
@@ -62,9 +101,10 @@ void main(){
   float wave=sin(length(p)*4.0-t*2.0)*0.5+0.5;
   float n4=fbm(vec3(p*0.8+vec2(t*0.2,-t*0.15),t*0.1+20.))*wave;
   float n=n1*0.55+n2*0.3+n3*mInfluence*1.5+n4*0.35;
-  vec3 c1=vec3(0.05,0.58,0.51);
-  vec3 c2=vec3(0.18,0.84,0.75);
-  vec3 c3=vec3(0.37,0.93,0.85);
+  // light theme darkens the palette: the canvas tints the page instead of glowing over it
+  vec3 c1=mix(vec3(0.05,0.58,0.51),vec3(0.02,0.29,0.26),u_light);
+  vec3 c2=mix(vec3(0.18,0.84,0.75),vec3(0.04,0.52,0.46),u_light);
+  vec3 c3=mix(vec3(0.37,0.93,0.85),vec3(0.08,0.72,0.65),u_light);
   float intensity=smoothstep(-0.2,0.8,n);
   vec3 col=mix(c1,c2,intensity);
   col=mix(col,c3,smoothstep(0.5,1.0,intensity)*0.6);
@@ -72,7 +112,7 @@ void main(){
   float vig=1.-smoothstep(0.4,1.5,length(uv*2.-1.));
   float alpha=intensity*0.30*vig+glow*0.7*vig;
   float centerGlow=exp(-dot(p,p)*0.6)*0.12; alpha+=centerGlow;
-  gl_FragColor=vec4(col,alpha);
+  gl_FragColor=vec4(col,alpha*mix(1.0,0.9,u_light));
 }`;
 
   function compile(type, src) {
@@ -95,6 +135,10 @@ void main(){
   const u_t = gl.getUniformLocation(prog, 'u_t');
   const u_r = gl.getUniformLocation(prog, 'u_r');
   const u_m = gl.getUniformLocation(prog, 'u_m');
+  const u_light = gl.getUniformLocation(prog, 'u_light');
+
+  let light = Theme.isLight();
+  window.addEventListener('themechange', e => { light = e.detail.light; });
 
   // Cursor tracking across the whole hero
   window.addEventListener('mousemove', e => {
@@ -110,9 +154,14 @@ void main(){
     requestAnimationFrame(frame);
     mx += (tmx - mx) * 0.12; my += (tmy - my) * 0.12;
     gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+    gl.enable(gl.BLEND);
+    // additive glow reads as light on black; on a white page it just washes out,
+    // so light mode composites normally and lets the darker palette tint instead
+    if (light) gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    else gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
     gl.useProgram(prog);
     gl.uniform1f(u_t, t * 0.001);
+    gl.uniform1f(u_light, light ? 1 : 0);
     gl.uniform2f(u_r, canvas.width, canvas.height);
     gl.uniform2f(u_m, mx, my);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
@@ -130,11 +179,23 @@ void main(){
   const ctx = canvas.getContext('2d');
   let width, height;
 
-  const NODE = 'rgba(45,212,191,0.85)';
-  const HL = '#5EEAD4';
-  const ARC = '20,184,166';
-  const RING = 'rgba(20,184,166,0.22)';
-  const LINE = 'rgba(45,212,191,0.10)';
+  // canvas can't read CSS tokens, so each theme carries its own palette
+  const PALETTES = {
+    dark: {
+      NODE: 'rgba(45,212,191,0.85)', HL: '#5EEAD4', ARC: '20,184,166',
+      RING: 'rgba(20,184,166,0.22)', LINE: 'rgba(45,212,191,0.10)',
+      HALO: 'rgba(20,184,166,0.13)', HALO_MID: 'rgba(20,184,166,0.04)',
+      GLOW: 'rgba(20,184,166,0.4)', SOFT: 'rgba(20,184,166,0.3)'
+    },
+    light: {
+      NODE: 'rgba(13,148,136,0.88)', HL: '#0A6A60', ARC: '13,148,136',
+      RING: 'rgba(13,148,136,0.36)', LINE: 'rgba(15,118,110,0.22)',
+      HALO: 'rgba(13,148,136,0.10)', HALO_MID: 'rgba(13,148,136,0.03)',
+      GLOW: 'rgba(13,148,136,0.42)', SOFT: 'rgba(13,148,136,0.32)'
+    }
+  };
+  let P = PALETTES[Theme.isLight() ? 'light' : 'dark'];
+  window.addEventListener('themechange', e => { P = PALETTES[e.detail.light ? 'light' : 'dark']; });
 
   const globeNodes = [], arcs = [];
   const numNodes = 780;
@@ -148,7 +209,7 @@ void main(){
     const x = Math.cos(theta) * radius, z = Math.sin(theta) * radius;
     const isHighlight = Math.random() > 0.92;
     const d = 1 + (Math.random() * 0.06 - 0.03);
-    globeNodes.push({ x: x * d, y: y * d, z: z * d, baseRadius: isHighlight ? 2 : 1, color: isHighlight ? HL : NODE });
+    globeNodes.push({ x: x * d, y: y * d, z: z * d, baseRadius: isHighlight ? 2 : 1, hl: isHighlight });
   }
   for (let i = 0; i < 18; i++) {
     arcs.push({ n1: (Math.random() * numNodes) | 0, n2: (Math.random() * numNodes) | 0, progress: Math.random(), speed: 0.002 + Math.random() * 0.005 });
@@ -178,15 +239,15 @@ void main(){
     const cx = width / 2, cy = height / 2, fov = 800;
 
     const g = ctx.createRadialGradient(cx, cy, globeRadius * 0.4, cx, cy, globeRadius * 1.6);
-    g.addColorStop(0, 'rgba(20,184,166,0.13)');
-    g.addColorStop(0.5, 'rgba(20,184,166,0.04)');
+    g.addColorStop(0, P.HALO);
+    g.addColorStop(0.5, P.HALO_MID);
     g.addColorStop(1, 'transparent');
     ctx.fillStyle = g; ctx.fillRect(0, 0, width, height);
 
     const sinY = Math.sin(angleY), cosY = Math.cos(angleY);
     const sinX = Math.sin(angleX), cosX = Math.cos(angleX);
 
-    ctx.lineWidth = 1; ctx.strokeStyle = LINE; ctx.setLineDash([2, 4]);
+    ctx.lineWidth = 1; ctx.strokeStyle = P.LINE; ctx.setLineDash([2, 4]);
     for (let lat = -4; lat <= 4; lat++) {
       const y = lat * 0.22, r = Math.sqrt(1 - y * y) * globeRadius;
       ctx.beginPath();
@@ -219,12 +280,12 @@ void main(){
       const x1 = n.x * cosY - n.z * sinY, z1 = n.x * sinY + n.z * cosY;
       const y1 = n.y * cosX - z1 * sinX, z2 = n.y * sinX + z1 * cosX;
       const s = fov / (fov + z2 * globeRadius);
-      proj.push({ px: cx + x1 * globeRadius * s, py: cy + y1 * globeRadius * s, z: z2, scale: s, color: n.color, r: n.baseRadius });
+      proj.push({ px: cx + x1 * globeRadius * s, py: cy + y1 * globeRadius * s, z: z2, scale: s, hl: n.hl, r: n.baseRadius });
     }
 
     orbitalRings.forEach(ring => {
       ring.angle += ring.speed;
-      ctx.beginPath(); ctx.strokeStyle = RING; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.strokeStyle = P.RING; ctx.lineWidth = 1;
       for (let i = 0; i <= Math.PI * 2.01; i += 0.05) {
         const x = Math.cos(i) * globeRadius * ring.radius, z = Math.sin(i) * globeRadius * ring.radius;
         const ty = x * ring.tiltX + z * ring.tiltZ;
@@ -243,8 +304,8 @@ void main(){
       const pyrd = dty * cosX - pzrd * sinX, fzd = dty * sinX + pzrd * cosX;
       if (fzd > -globeRadius * 1.5) {
         const s = fov / (fov + fzd), pX = cx + pxrd * s, pY = cy + pyrd * s;
-        ctx.beginPath(); ctx.arc(pX, pY, 2 * s, 0, Math.PI * 2); ctx.fillStyle = HL; ctx.fill();
-        ctx.beginPath(); ctx.arc(pX, pY, 6 * s, 0, Math.PI * 2); ctx.fillStyle = 'rgba(20,184,166,0.4)'; ctx.fill();
+        ctx.beginPath(); ctx.arc(pX, pY, 2 * s, 0, Math.PI * 2); ctx.fillStyle = P.HL; ctx.fill();
+        ctx.beginPath(); ctx.arc(pX, pY, 6 * s, 0, Math.PI * 2); ctx.fillStyle = P.GLOW; ctx.fill();
       }
     });
 
@@ -257,9 +318,9 @@ void main(){
         const mx = (a.px + b.px) / 2, my = (a.py + b.py) / 2 - 20 * a.scale;
         ctx.quadraticCurveTo(mx, my, b.px, b.py);
         const grad = ctx.createLinearGradient(a.px, a.py, b.px, b.py);
-        grad.addColorStop(0, `rgba(${ARC},0)`);
-        grad.addColorStop(arc.progress, `rgba(${ARC},0.85)`);
-        grad.addColorStop(Math.min(1, arc.progress + 0.1), `rgba(${ARC},0)`);
+        grad.addColorStop(0, `rgba(${P.ARC},0)`);
+        grad.addColorStop(arc.progress, `rgba(${P.ARC},0.85)`);
+        grad.addColorStop(Math.min(1, arc.progress + 0.1), `rgba(${P.ARC},0)`);
         ctx.strokeStyle = grad; ctx.stroke();
       }
     });
@@ -271,9 +332,9 @@ void main(){
       const d = Math.hypot(p.px - cx, p.py - cy);
       const edge = Math.min(1, d / (globeRadius * 0.8));
       ctx.globalAlpha = Math.min(1, alpha * (0.5 + edge * 0.5));
-      ctx.beginPath(); ctx.arc(p.px, p.py, p.r * p.scale, 0, Math.PI * 2); ctx.fillStyle = p.color; ctx.fill();
+      ctx.beginPath(); ctx.arc(p.px, p.py, p.r * p.scale, 0, Math.PI * 2); ctx.fillStyle = p.hl ? P.HL : P.NODE; ctx.fill();
       if (p.r > 1.5 && ctx.globalAlpha > 0.4) {
-        ctx.beginPath(); ctx.arc(p.px, p.py, p.r * 2.5 * p.scale, 0, Math.PI * 2); ctx.fillStyle = 'rgba(20,184,166,0.3)'; ctx.fill();
+        ctx.beginPath(); ctx.arc(p.px, p.py, p.r * 2.5 * p.scale, 0, Math.PI * 2); ctx.fillStyle = P.SOFT; ctx.fill();
       }
     }
     ctx.globalAlpha = 1;
@@ -503,11 +564,20 @@ const TESTIMONIALS = [
     const geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geo.setAttribute('scale', new THREE.BufferAttribute(scales, 1));
+    const DOT = { dark: 0x2DD4BF, light: 0x0D9488 };
     const mat = new THREE.ShaderMaterial({
-      uniforms: { color: { value: new THREE.Color(0x2DD4BF) } },
+      uniforms: {
+        color: { value: new THREE.Color(Theme.isLight() ? DOT.light : DOT.dark) },
+        // dots need more presence against a light page than a black one
+        alpha: { value: Theme.isLight() ? 0.62 : 0.55 }
+      },
       vertexShader: 'attribute float scale;void main(){vec4 mv=modelViewMatrix*vec4(position,1.0);gl_PointSize=scale*(200.0/-mv.z);gl_Position=projectionMatrix*mv;}',
-      fragmentShader: 'uniform vec3 color;void main(){if(length(gl_PointCoord-vec2(0.5))>0.475)discard;gl_FragColor=vec4(color,0.55);}',
+      fragmentShader: 'uniform vec3 color;uniform float alpha;void main(){if(length(gl_PointCoord-vec2(0.5))>0.475)discard;gl_FragColor=vec4(color,alpha);}',
       transparent: true
+    });
+    window.addEventListener('themechange', e => {
+      mat.uniforms.color.value.setHex(e.detail.light ? DOT.light : DOT.dark);
+      mat.uniforms.alpha.value = e.detail.light ? 0.62 : 0.55;
     });
     const points = new THREE.Points(geo, mat);
     scene.add(points);

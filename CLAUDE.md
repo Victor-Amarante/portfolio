@@ -17,8 +17,9 @@ Victor Amarante's personal portfolio site — a single-page static site (English
 Everything user-facing lives in three files:
 
 - `docs/index.html` (~1.3k lines) — every section inline, ordered top-to-bottom: Nav → Hero → Trust marquee → About → Expertise (bento grid) → Globe/Intelligence layer → Impact metrics → Experience (timeline) → Projects → Certifications → Consensus (testimonials) → Contact → Footer. Sections are delimited by `<!-- ═══ NAME ═══ -->` banner comments — use these to navigate.
-- `docs/assets/css/styles.css` — design tokens in `:root` (`--bg-0`, `--accent`, `--accent-light`, `--font-body`, `--maxw`, etc.) drive the entire teal-on-near-black theme distilled from the aura.build reference sites. Change the theme by editing tokens, not individual selectors.
-- `docs/assets/js/main.js` — eight numbered IIFEs, each a self-contained interactive piece:
+- `docs/assets/css/styles.css` — design tokens in `:root` (`--bg-0`, `--accent`, `--accent-light`, `--font-body`, `--maxw`, etc.) drive the entire teal theme distilled from the aura.build reference sites. Change the look by editing tokens, not individual selectors.
+- `docs/assets/js/main.js` — a `Theme` module plus eight numbered IIFEs, each a self-contained interactive piece:
+  0. `Theme` — dark/light switch. See "Theming" below.
   1. Hero WebGL aurora/plasma shader (`#heroCanvas`, cursor-reactive fbm noise).
   2. Canvas-2D fibonacci-sphere globe with orbital rings and animated arcs (`#hero-globe`).
   3. Nav scroll state + mobile hamburger.
@@ -30,6 +31,18 @@ Everything user-facing lives in three files:
   8. Sets the copyright year and calls `lucide.createIcons()`.
 
 Each IIFE early-returns if its anchor element is missing, so sections can be safely removed from `index.html` without JS errors.
+
+## Theming (dark default + light)
+
+The active theme is the `data-theme` attribute on `<html>`: absent = dark, `"light"` = light. Three pieces keep in sync:
+
+1. **CSS** — `:root` holds the dark tokens, `:root[data-theme="light"]` overrides them. Surfaces don't hardcode colours; they resolve through bare `r,g,b` triples so alpha ramps survive a theme flip: `--ink` (text/borders/raised surfaces), `--paper` + `--paper-2` (translucent nav & dropdown panels), `--shadow`. Hence `rgba(var(--ink),0.07)` all over the file. Raised cards share `--surface`; text sitting on teal fills uses `--on-accent`. **Adding a colour means adding a token, not a literal** — a literal `rgba(255,255,255,…)` will look wrong in light mode.
+2. **Anti-flash** — an inline script in `<head>` reads `localStorage['va-theme']` (falling back to `prefers-color-scheme`) and sets the attribute before first paint. It must stay inline and before the stylesheet.
+3. **Canvases** — the three canvases can't read CSS tokens, so each carries its own palette and subscribes to the `themechange` event: the hero shader takes a `u_light` uniform *and* swaps to normal alpha blending (additive glow only works on a dark page), the globe swaps its `PALETTES` object, the dot-wave updates its material uniforms.
+
+`Theme.isLight()` gives the current state; `Theme.apply('light'|'dark', persist)` sets it.
+
+Note: Lucide **replaces** `<i data-lucide>` with an `<svg>`, so CSS icon rules must target `svg` (or a class on the `<i>`, which Lucide copies over) — a bare `.foo i` selector silently stops applying and the icon renders at its default 24px.
 
 ## External runtime dependencies (CDN, no install)
 

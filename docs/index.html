@@ -15,6 +15,19 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@200;300;400;500;600&display=swap"
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <!-- set the theme before first paint so there's no flash of the wrong one -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('va-theme');
+          var light =
+            stored === 'light' ||
+            (!stored &&
+              window.matchMedia('(prefers-color-scheme: light)').matches);
+          if (light) document.documentElement.setAttribute('data-theme', 'light');
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <!-- global animated dot-wave backdrop (hidden under hero & globe) -->
@@ -30,8 +43,19 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <div class="nav-cta">
-        <div class="cv-menu">
+      <div class="nav-right">
+        <button
+          type="button"
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Switch colour theme"
+          title="Switch colour theme"
+        >
+          <i data-lucide="sun" class="th-sun"></i>
+          <i data-lucide="moon" class="th-moon"></i>
+        </button>
+        <div class="nav-cta">
+          <div class="cv-menu">
           <button
             type="button"
             class="btn-nav btn-nav-ghost cv-menu-btn"
@@ -52,11 +76,12 @@
             >
           </div>
         </div>
-        <a href="#contact" class="btn-nav btn-nav-solid">Let's talk</a>
+          <a href="#contact" class="btn-nav btn-nav-solid">Let's talk</a>
+        </div>
+        <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
     </nav>
     <div class="nav-mobile" id="navMobile">
       <ul>
