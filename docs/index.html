@@ -41,6 +41,7 @@
         <li><a href="#expertise">Expertise</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#speaking">Speaking</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="nav-right">
@@ -89,6 +90,7 @@
         <li><a href="#expertise">Expertise</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#speaking">Speaking</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="nav-mobile-cv">
@@ -1279,6 +1281,341 @@
       </div>
     </section>
 
+    <!-- ═══════════════ SPEAKING & TEACHING ═══════════════ -->
+    <!-- Justified photo gallery: each figure carries its own --ar (the source
+         aspect ratio) and flex-grows in proportion to it, so every row lands
+         at a single height with zero cropping. Adding a photo = one <figure>
+         with the right --ar; the lightbox reads its caption from the DOM. -->
+    <section class="section" id="speaking">
+      <div class="section-sep"></div>
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Beyond the code</span>
+          <h2>
+            Teaching what I <span class="text-gradient">build</span>
+          </h2>
+          <p>
+            Lectures, workshops and hands-on labs — universities, corporate
+            training rooms and the academic league I co-founded. Explaining a
+            system is the fastest way to find out how well you understand it.
+          </p>
+        </div>
+
+        <div class="talks-gallery reveal">
+          <!-- Row Σ--ar decides the row's height: the bigger the sum, the
+               shorter (and more numerous) the tiles. 3.58 and 3.00 here keep
+               both rows near 300–360px, which is the compact look. -->
+          <div class="talks-row">
+            <figure
+              class="talk"
+              style="--ar: 0.75"
+              tabindex="0"
+              role="button"
+              aria-label="Open photo — Sixty years in one slide"
+              data-full="assets/img/talks/ai-timeline-lg.jpg"
+            >
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    assets/img/talks/ai-timeline-sm.webp  525w,
+                    assets/img/talks/ai-timeline-lg.webp 1200w
+                  "
+                  sizes="(max-width: 520px) 92vw, (max-width: 1024px) 46vw, 17vw"
+                />
+                <img
+                  src="assets/img/talks/ai-timeline-sm.jpg"
+                  srcset="
+                    assets/img/talks/ai-timeline-sm.jpg  525w,
+                    assets/img/talks/ai-timeline-lg.jpg 1200w
+                  "
+                  sizes="(max-width: 520px) 92vw, (max-width: 1024px) 46vw, 17vw"
+                  alt="Victor pointing at a projected AI Timeline slide while teaching a class"
+                  loading="lazy"
+                  width="1200"
+                  height="1600"
+                />
+              </picture>
+              <figcaption class="talk-cap">
+                <span class="talk-kicker">Lecture</span>
+                <strong>Sixty years in one slide</strong>
+                <p>
+                  Walking a class down the timeline — perceptrons, the neural
+                  winters, the transformer — because none of what we build today
+                  makes sense without the arc that got us here.
+                </p>
+              </figcaption>
+              <span class="talk-zoom" aria-hidden="true"
+                ><i data-lucide="maximize-2"></i
+              ></span>
+            </figure>
+
+            <figure
+              class="talk talk-wide"
+              style="--ar: 1.501"
+              tabindex="0"
+              role="button"
+              aria-label="Open photo — LLMs, end to end"
+              data-full="assets/img/talks/llm-lecture-lg.jpg"
+            >
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    assets/img/talks/llm-lecture-sm.webp  700w,
+                    assets/img/talks/llm-lecture-lg.webp 1600w
+                  "
+                  sizes="(max-width: 1024px) 92vw, 33vw"
+                />
+                <img
+                  src="assets/img/talks/llm-lecture-sm.jpg"
+                  srcset="
+                    assets/img/talks/llm-lecture-sm.jpg  700w,
+                    assets/img/talks/llm-lecture-lg.jpg 1600w
+                  "
+                  sizes="(max-width: 1024px) 92vw, 33vw"
+                  alt="Victor presenting a slide on LLMs to a full auditorium"
+                  loading="lazy"
+                  width="1600"
+                  height="1066"
+                />
+              </picture>
+              <figcaption class="talk-cap">
+                <span class="talk-kicker">Guest lecture</span>
+                <strong>LLMs, end to end</strong>
+                <p>
+                  Walking an auditorium through the transformer stack — from
+                  tokenization to attention to why the context window is the
+                  constraint everything else is designed around.
+                </p>
+              </figcaption>
+              <span class="talk-zoom" aria-hidden="true"
+                ><i data-lucide="maximize-2"></i
+              ></span>
+            </figure>
+
+            <figure
+              class="talk talk-wide"
+              style="--ar: 1.333"
+              tabindex="0"
+              role="button"
+              aria-label="Open photo — Where the tracks start"
+              data-full="assets/img/talks/ligia-ufpe-lg.jpg"
+            >
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    assets/img/talks/ligia-ufpe-sm.webp  700w,
+                    assets/img/talks/ligia-ufpe-lg.webp 1600w
+                  "
+                  sizes="(max-width: 1024px) 92vw, 29vw"
+                />
+                <img
+                  src="assets/img/talks/ligia-ufpe-sm.jpg"
+                  srcset="
+                    assets/img/talks/ligia-ufpe-sm.jpg  700w,
+                    assets/img/talks/ligia-ufpe-lg.jpg 1600w
+                  "
+                  sizes="(max-width: 1024px) 92vw, 29vw"
+                  alt="A full room of students at a LIGIA session at UFPE"
+                  loading="lazy"
+                  width="1600"
+                  height="1200"
+                />
+              </picture>
+              <figcaption class="talk-cap">
+                <span class="talk-kicker">Jun 2025 · LIGIA @ UFPE</span>
+                <strong>Where the tracks start</strong>
+                <p>
+                  A session of the AI academic league I co-founded — the ML, NLP
+                  and Computer Vision learning tracks begin in this room.
+                </p>
+              </figcaption>
+              <span class="talk-zoom" aria-hidden="true"
+                ><i data-lucide="maximize-2"></i
+              ></span>
+            </figure>
+          </div>
+
+          <div class="talks-row">
+            <figure
+              class="talk"
+              style="--ar: 0.75"
+              tabindex="0"
+              role="button"
+              aria-label="Open photo — AI under the law"
+              data-full="assets/img/talks/ai-governance-lg.jpg"
+            >
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    assets/img/talks/ai-governance-sm.webp  700w,
+                    assets/img/talks/ai-governance-lg.webp 1200w
+                  "
+                  sizes="(max-width: 520px) 92vw, (max-width: 1024px) 46vw, 19vw"
+                />
+                <img
+                  src="assets/img/talks/ai-governance-sm.jpg"
+                  srcset="
+                    assets/img/talks/ai-governance-sm.jpg  700w,
+                    assets/img/talks/ai-governance-lg.jpg 1200w
+                  "
+                  sizes="(max-width: 520px) 92vw, (max-width: 1024px) 46vw, 19vw"
+                  alt="Slide reading Legislação — LGPD, EU AI Act during a talk on AI regulation"
+                  loading="lazy"
+                  width="1200"
+                  height="1600"
+                />
+              </picture>
+              <figcaption class="talk-cap">
+                <span class="talk-kicker">Talk</span>
+                <strong>AI under the law</strong>
+                <p>
+                  LGPD and the EU AI Act — what regulation actually asks of the
+                  people shipping models, not the version in the headlines.
+                </p>
+              </figcaption>
+              <span class="talk-zoom" aria-hidden="true"
+                ><i data-lucide="maximize-2"></i
+              ></span>
+            </figure>
+
+            <figure
+              class="talk"
+              style="--ar: 0.75"
+              tabindex="0"
+              role="button"
+              aria-label="Open photo — Fine-tuning, in practice"
+              data-full="assets/img/talks/fine-tuning-workshop-lg.jpg"
+            >
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    assets/img/talks/fine-tuning-workshop-sm.webp  700w,
+                    assets/img/talks/fine-tuning-workshop-lg.webp 1200w
+                  "
+                  sizes="(max-width: 520px) 92vw, (max-width: 1024px) 46vw, 19vw"
+                />
+                <img
+                  src="assets/img/talks/fine-tuning-workshop-sm.jpg"
+                  srcset="
+                    assets/img/talks/fine-tuning-workshop-sm.jpg  700w,
+                    assets/img/talks/fine-tuning-workshop-lg.jpg 1200w
+                  "
+                  sizes="(max-width: 520px) 92vw, (max-width: 1024px) 46vw, 19vw"
+                  alt="Victor teaching a small class in front of a slide about model training"
+                  loading="lazy"
+                  width="1200"
+                  height="1600"
+                />
+              </picture>
+              <figcaption class="talk-cap">
+                <span class="talk-kicker">Jul 2025 · Workshop</span>
+                <strong>Fine-tuning, in practice</strong>
+                <p>
+                  When to fine-tune, when to prompt, and when the honest answer
+                  is to go build better retrieval instead.
+                </p>
+              </figcaption>
+              <span class="talk-zoom" aria-hidden="true"
+                ><i data-lucide="maximize-2"></i
+              ></span>
+            </figure>
+
+            <figure
+              class="talk"
+              style="--ar: 0.75"
+              tabindex="0"
+              role="button"
+              aria-label="Open photo — Theory on one screen, the API on the other"
+              data-full="assets/img/talks/hands-on-lab-lg.jpg"
+            >
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    assets/img/talks/hands-on-lab-sm.webp  700w,
+                    assets/img/talks/hands-on-lab-lg.webp 1200w
+                  "
+                  sizes="(max-width: 520px) 92vw, (max-width: 1024px) 46vw, 19vw"
+                />
+                <img
+                  src="assets/img/talks/hands-on-lab-sm.jpg"
+                  srcset="
+                    assets/img/talks/hands-on-lab-sm.jpg  700w,
+                    assets/img/talks/hands-on-lab-lg.jpg 1200w
+                  "
+                  sizes="(max-width: 520px) 92vw, (max-width: 1024px) 46vw, 19vw"
+                  alt="Victor pointing at a projected screen showing clustering notes beside a running FastAPI server"
+                  loading="lazy"
+                  width="1200"
+                  height="1600"
+                />
+              </picture>
+              <figcaption class="talk-cap">
+                <span class="talk-kicker">Jul 2025 · Hands-on lab</span>
+                <strong>Theory on one screen, the API on the other</strong>
+                <p>
+                  Clustering definitions on the left, a live FastAPI backend
+                  answering requests on the right — the moment it stops being
+                  abstract.
+                </p>
+              </figcaption>
+              <span class="talk-zoom" aria-hidden="true"
+                ><i data-lucide="maximize-2"></i
+              ></span>
+            </figure>
+
+            <figure
+              class="talk"
+              style="--ar: 0.75"
+              tabindex="0"
+              role="button"
+              aria-label="Open photo — Keeping up with the platform"
+              data-full="assets/img/talks/google-cloud-lg.jpg"
+            >
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    assets/img/talks/google-cloud-sm.webp  700w,
+                    assets/img/talks/google-cloud-lg.webp 1200w
+                  "
+                  sizes="(max-width: 520px) 92vw, (max-width: 1024px) 46vw, 19vw"
+                />
+                <img
+                  src="assets/img/talks/google-cloud-sm.jpg"
+                  srcset="
+                    assets/img/talks/google-cloud-sm.jpg  700w,
+                    assets/img/talks/google-cloud-lg.jpg 1200w
+                  "
+                  sizes="(max-width: 520px) 92vw, (max-width: 1024px) 46vw, 19vw"
+                  alt="Victor standing beside a Google Cloud logo sculpture at an event"
+                  loading="lazy"
+                  width="1200"
+                  height="1600"
+                />
+              </picture>
+              <figcaption class="talk-cap">
+                <span class="talk-kicker">Nov 2025 · Event</span>
+                <strong>Keeping up with the platform</strong>
+                <p>
+                  A Google Cloud event — the other half of the job is staying
+                  current with the infrastructure these systems run on.
+                </p>
+              </figcaption>
+              <span class="talk-zoom" aria-hidden="true"
+                ><i data-lucide="maximize-2"></i
+              ></span>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══════════════ CONSENSUS / TESTIMONIALS ═══════════════ -->
     <section id="consensus">
       <div class="section-sep"></div>
@@ -1455,6 +1792,38 @@
         </div>
       </div>
     </footer>
+
+    <!-- ═══════════════ LIGHTBOX (speaking gallery) ═══════════════ -->
+    <div
+      class="lbox"
+      id="lbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Photo viewer"
+      hidden
+    >
+      <div class="lbox-backdrop" data-lbox-close></div>
+      <button class="lbox-btn lbox-close" aria-label="Close" data-lbox-close>
+        <i data-lucide="x"></i>
+      </button>
+      <button class="lbox-btn lbox-prev" aria-label="Previous photo">
+        <i data-lucide="arrow-left"></i>
+      </button>
+      <button class="lbox-btn lbox-next" aria-label="Next photo">
+        <i data-lucide="arrow-right"></i>
+      </button>
+      <figure class="lbox-stage">
+        <img id="lboxImg" alt="" />
+        <figcaption class="lbox-cap">
+          <span class="talk-kicker" id="lboxKicker"></span>
+          <strong id="lboxTitle"></strong>
+          <p id="lboxDesc"></p>
+          <span class="lbox-count"
+            ><span id="lboxIdx">1</span> / <span id="lboxTotal">6</span></span
+          >
+        </figcaption>
+      </figure>
+    </div>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script src="assets/js/main.js"></script>

@@ -654,7 +654,112 @@ const TESTIMONIALS = [
 })();
 
 /* ─────────────────────────────────────────────────────────
-   8. Dynamic year + Lucide icons
+   8. Speaking gallery lightbox
+   Captions are NOT duplicated here — each slide reads its
+   kicker/title/description straight out of the figure's own
+   <figcaption>, so editing the HTML is enough.
+   ───────────────────────────────────────────────────────── */
+(() => {
+  const box = document.getElementById('lbox');
+  const figures = Array.from(document.querySelectorAll('.talk'));
+  if (!box || !figures.length) return;
+
+  const img = document.getElementById('lboxImg');
+  const kicker = document.getElementById('lboxKicker');
+  const title = document.getElementById('lboxTitle');
+  const desc = document.getElementById('lboxDesc');
+  const idxEl = document.getElementById('lboxIdx');
+  const stage = box.querySelector('.lbox-stage');
+  let current = 0;
+  let lastFocus = null;
+
+  document.getElementById('lboxTotal').textContent = figures.length;
+
+  const show = (i) => {
+    current = (i + figures.length) % figures.length;
+    const fig = figures[current];
+    const cap = fig.querySelector('.talk-cap');
+    img.src = fig.dataset.full;
+    img.alt = fig.querySelector('img').alt;
+    kicker.textContent = cap.querySelector('.talk-kicker').textContent;
+    title.textContent = cap.querySelector('strong').textContent;
+    desc.textContent = cap.querySelector('p').textContent;
+    idxEl.textContent = current + 1;
+    // preload the neighbours so arrowing through doesn't flash
+    [current + 1, current - 1].forEach(n => {
+      const nf = figures[(n + figures.length) % figures.length];
+      new Image().src = nf.dataset.full;
+    });
+  };
+
+  const open = (i) => {
+    lastFocus = document.activeElement;
+    show(i);
+    box.hidden = false;
+    document.body.classList.add('lbox-open');
+    requestAnimationFrame(() => box.classList.add('open'));
+    box.querySelector('.lbox-close').focus();
+  };
+
+  const close = () => {
+    box.classList.remove('open');
+    document.body.classList.remove('lbox-open');
+    const done = () => {
+      box.hidden = true;
+      img.removeAttribute('src');
+    };
+    // wait out the fade, but don't hang if transitions are off
+    const t = setTimeout(done, 340);
+    box.addEventListener('transitionend', () => {
+      clearTimeout(t);
+      done();
+    }, { once: true });
+    if (lastFocus) lastFocus.focus();
+  };
+
+  figures.forEach((fig, i) => {
+    fig.addEventListener('click', () => open(i));
+    fig.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        open(i);
+      }
+    });
+  });
+
+  box.querySelectorAll('[data-lbox-close]').forEach(el =>
+    el.addEventListener('click', close)
+  );
+  box.querySelector('.lbox-prev').addEventListener('click', () => show(current - 1));
+  box.querySelector('.lbox-next').addEventListener('click', () => show(current + 1));
+  // a click that lands on the padding around the image closes too
+  box.addEventListener('click', (e) => {
+    if (e.target === box || e.target === stage) close();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (box.hidden) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowRight') show(current + 1);
+    else if (e.key === 'ArrowLeft') show(current - 1);
+    else if (e.key === 'Tab') {
+      // keep tabbing inside the dialog while it's open
+      const stops = box.querySelectorAll('.lbox-btn');
+      const first = stops[0];
+      const last = stops[stops.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
+})();
+
+/* ─────────────────────────────────────────────────────────
+   9. Dynamic year + Lucide icons
    ───────────────────────────────────────────────────────── */
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
