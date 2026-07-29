@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-Victor Amarante's personal portfolio site — a single-page static site (English) presenting him as a Senior AI/ML Engineer. No framework, no build step, no package.json: hand-written HTML/CSS/vanilla JS deployed as-is.
+Victor Amarante's personal portfolio site — a single-page static site (English) presenting him as a Senior Applied AI Engineer. No framework, no build step, no package.json: hand-written HTML/CSS/vanilla JS deployed as-is.
 
 ## Serving & deploying
 
@@ -20,7 +20,7 @@ Everything user-facing lives in three files:
 - `docs/assets/css/styles.css` — design tokens in `:root` (`--bg-0`, `--accent`, `--accent-light`, `--font-body`, `--maxw`, etc.) drive the entire teal theme distilled from the aura.build reference sites. Change the look by editing tokens, not individual selectors.
 - `docs/assets/js/main.js` — a `Theme` module plus eight numbered IIFEs, each a self-contained interactive piece:
   0. `Theme` — dark/light switch. See "Theming" below.
-  1. Hero WebGL aurora/plasma shader (`#heroCanvas`, cursor-reactive fbm noise).
+  1. Hero WebGL aurora/plasma shader (`#heroCanvas`, fbm noise). The plasma is anchored to a fixed focal point (`mp` in the fragment shader) — it deliberately does **not** track the pointer, and nothing else on the site does either.
   2. Canvas-2D fibonacci-sphere globe with orbital rings and animated arcs (`#hero-globe`).
   3. Nav scroll state + mobile hamburger.
   4. `IntersectionObserver` scroll-reveal for `.reveal`, `.reveal-left`, `.reveal-right`, `.stagger-up`.

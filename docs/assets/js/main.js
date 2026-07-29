@@ -42,16 +42,15 @@ const Theme = (() => {
 })();
 
 /* ─────────────────────────────────────────────────────────
-   1. HERO — WebGL cursor-reactive aurora/plasma shader
-   (adapted from the Cadence hero canvas)
+   1. HERO — WebGL aurora/plasma shader
+   (adapted from the Cadence hero canvas; the pointer-reactive
+    variant was dropped — the plasma sits on a fixed focal point)
    ───────────────────────────────────────────────────────── */
 (function () {
   const canvas = document.getElementById('heroCanvas');
   if (!canvas) return;
   const gl = canvas.getContext('webgl', { alpha: true, antialias: false, premultipliedAlpha: false });
   if (!gl) return;
-
-  let mx = 0.5, my = 0.5, tmx = 0.5, tmy = 0.5;
 
   function resize() {
     const dpr = Math.min(window.devicePixelRatio, 1.5);
@@ -65,7 +64,7 @@ const Theme = (() => {
   const VERT = `attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}`;
   const FRAG = `
 precision highp float;
-uniform float u_t; uniform vec2 u_r; uniform vec2 u_m; uniform float u_light;
+uniform float u_t; uniform vec2 u_r; uniform float u_light;
 vec3 mod289(vec3 x){return x-floor(x*(1./289.))*289.;}
 vec4 mod289(vec4 x){return x-floor(x*(1./289.))*289.;}
 vec4 perm(vec4 x){return mod289(((x*34.)+1.)*x);}
@@ -90,7 +89,10 @@ float snoise(vec3 v){
 float fbm(vec3 p){ float v=0.,a=.5; for(int i=0;i<5;i++){ v+=a*snoise(p); p*=2.1; a*=.48; } return v; }
 void main(){
   vec2 uv=(gl_FragCoord.xy)/u_r; vec2 p=uv*2.-1.; p.x*=u_r.x/u_r.y;
-  vec2 mp=u_m*2.-1.; mp.x*=u_r.x/u_r.y;
+  // the plasma used to be anchored to the cursor; it now sits on a fixed
+  // focal point, so the aurora still has a bright core and a warped centre
+  // but nothing in the hero reacts to the pointer
+  vec2 mp=vec2(0.0,0.05);
   float md=length(p-mp);
   float mInfluence=smoothstep(1.5,0.,md)*0.6;
   p+=normalize(p-mp+.001)*mInfluence*0.45;
@@ -134,25 +136,16 @@ void main(){
 
   const u_t = gl.getUniformLocation(prog, 'u_t');
   const u_r = gl.getUniformLocation(prog, 'u_r');
-  const u_m = gl.getUniformLocation(prog, 'u_m');
   const u_light = gl.getUniformLocation(prog, 'u_light');
 
   let light = Theme.isLight();
   window.addEventListener('themechange', e => { light = e.detail.light; });
-
-  // Cursor tracking across the whole hero
-  window.addEventListener('mousemove', e => {
-    const r = canvas.getBoundingClientRect();
-    tmx = (e.clientX - r.left) / r.width;
-    tmy = 1.0 - (e.clientY - r.top) / r.height;
-  });
 
   resize();
   window.addEventListener('resize', resize);
 
   function frame(t) {
     requestAnimationFrame(frame);
-    mx += (tmx - mx) * 0.12; my += (tmy - my) * 0.12;
     gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
     gl.enable(gl.BLEND);
     // additive glow reads as light on black; on a white page it just washes out,
@@ -163,7 +156,6 @@ void main(){
     gl.uniform1f(u_t, t * 0.001);
     gl.uniform1f(u_light, light ? 1 : 0);
     gl.uniform2f(u_r, canvas.width, canvas.height);
-    gl.uniform2f(u_m, mx, my);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
   requestAnimationFrame(frame);
