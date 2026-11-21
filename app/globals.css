@@ -10,8 +10,8 @@
      --shadow  drop shadows
    They hold bare "r,g,b" triples so they can be used as
    rgba(var(--ink),0.07). Dark is the default; the light theme
-   overrides them under [data-theme="light"] and main.js mirrors
-   the same switch into the three canvases.
+   overrides them under [data-theme="light"] and lib/theme.ts
+   mirrors the same switch into the three canvases.
    ============================================================ */
 
 :root {
@@ -49,8 +49,9 @@
   --border-l: rgba(20, 184, 166, 0.32);
   --glow-sm: 0 0 20px rgba(20, 184, 166, 0.15);
   --glow-md: 0 0 40px rgba(20, 184, 166, 0.2);
-  --font-body: "Inter", sans-serif;
-  --font-head: "Outfit", sans-serif;
+  /* --font-inter / --font-outfit are set on <html> by next/font (app/layout.tsx) */
+  --font-body: var(--font-inter), "Inter", sans-serif;
+  --font-head: var(--font-outfit), "Outfit", sans-serif;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --maxw: 1180px;
 }
