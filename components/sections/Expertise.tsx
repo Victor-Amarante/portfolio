@@ -1,70 +1,72 @@
 import {
-  Activity, Bot, Brain, ChartLine, Cloud, CodeXml, Network, Sigma, type LucideIcon,
+  Activity, Bot, Brain, Cloud, CodeXml, Database, Server, Users, type LucideIcon,
 } from "lucide-react";
 import { Fragment } from "react";
 import Reveal from "../Reveal";
 
+// Career journey — phases overlap; the last one is where the work is now.
 const EVOLUTION = [
-  "Statistics & Probability",
-  "Classical ML & Data Science",
-  "Deep Learning & NLP",
-  "LLMs & Retrieval",
-  "Multi-Agent Systems",
+  "Statistics & Applied ML",
+  "Intelligent Automation",
+  "Generative AI & Backend Engineering",
+  "Production Agentic Systems",
+  "Enterprise AI Systems Engineering",
 ];
 
 type Card = { Icon: LucideIcon; title: string; tag?: string; wide?: boolean; text: string; badges: string[] };
 
+// Grouped by the engineering problem each set of skills solves; badges are evidence, not a wall of logos.
 const CARDS: Card[] = [
   {
     Icon: Bot,
-    title: "Multi-Agent & Agentic Systems",
-    tag: "Where I am now",
+    title: "Agentic AI & LLM Systems",
+    tag: "Current focus",
     wide: true,
-    text: "The frontier my whole trajectory led to. Supervised multi-agent architectures — orchestrator + specialist agents — with ReAct, self-reflection, hierarchical delegation, contextual memory and event-driven workflows over MCP & A2A tool integration.",
-    badges: ["LangGraph", "CrewAI", "Agno", "MCP servers", "ReAct", "A2A"],
-  },
-  {
-    Icon: ChartLine,
-    title: "ML & Data Science",
-    tag: "Where it started",
-    text: "The foundation everything builds on. Predictive modeling, EDA, feature engineering, time-series forecasting and rigorous model selection & validation.",
-    badges: ["Scikit-learn", "Pandas", "NumPy", "MLflow", "Time Series"],
-  },
-  {
-    Icon: Brain,
-    title: "Deep Learning & NLP",
-    text: "Neural networks and language. Embeddings, tokenization and LoRA fine-tuning of small language models — plus computer vision: YOLO detection and VLMs generating structured diagnostic reports.",
-    badges: ["PyTorch", "TensorFlow", "LoRA", "spaCy", "YOLO"],
-  },
-  {
-    Icon: Sigma,
-    title: "Mathematics & Statistics",
-    text: "Formal training in probability, applied statistics, linear algebra and numerical calculus — the mathematical backbone that makes AI work for real.",
-    badges: ["Probability", "Linear Algebra", "SciPy", "Statsmodels"],
-  },
-  {
-    Icon: Network,
-    title: "LLMs, RAG & GraphRAG",
-    text: "Retrieval architectures combining vector search with entity-relationship traversal. Chunking, reranking, hybrid & semantic search over siloed enterprise data.",
-    badges: ["Neo4j", "pgvector", "FAISS", "ChromaDB", "LlamaIndex"],
-  },
-  {
-    Icon: Activity,
-    title: "MLOps & LLMOps",
-    text: "Reliability end to end — from experiment tracking and model monitoring to prompt lifecycle governance, distributed tracing and inference/cost optimization.",
-    badges: ["MLflow", "LangSmith", "OpenTelemetry", "Evals"],
-  },
-  {
-    Icon: Cloud,
-    title: "Cloud & Deployment",
-    text: "Cloud-native, containerized AI microservices built for scale, performance and reliability across AWS and GCP.",
-    badges: ["Bedrock", "SageMaker", "Vertex AI", "Docker", "Kubernetes"],
+    text: "Multi-agent orchestration with an orchestrator and specialist services: tool calling, structured outputs, contextual memory and human-in-the-loop checkpoints, connected to enterprise systems through MCP (Model Context Protocol) and A2A (agent-to-agent communication).",
+    badges: ["LangGraph", "LangChain", "Agno", "CrewAI", "MCP servers", "A2A", "ReAct"],
   },
   {
     Icon: CodeXml,
-    title: "Software Engineering",
-    text: "Backend services with Hexagonal Architecture and DDD, adhering to Clean Code and SOLID — because AI is only as good as the engineering it ships on.",
-    badges: ["FastAPI", "Django", "DDD", "SOLID", "TypeScript"],
+    title: "Software Engineering & System Design",
+    text: "Backend services designed around clear boundaries: layered and hexagonal architectures, Domain-Driven Design, SOLID and clean code.",
+    badges: ["Python", "TypeScript", "FastAPI", "Django", "DDD", "SOLID"],
+  },
+  {
+    Icon: Server,
+    title: "Backend & Distributed Systems",
+    text: "Microservices, REST APIs and service integrations; state machines, event streaming over Server-Sent Events and tracing across service boundaries.",
+    badges: ["Microservices", "REST APIs", "State machines", "SSE"],
+  },
+  {
+    Icon: Brain,
+    title: "AI & ML Engineering",
+    tag: "Where it started",
+    text: "Probability, statistics and linear algebra first; then supervised learning, forecasting, classification, NLP, deep learning and computer vision — YOLO detection and VLM-generated reports.",
+    badges: ["PyTorch", "TensorFlow", "Scikit-learn", "Pandas", "NumPy", "SciPy", "Statsmodels", "spaCy", "LoRA", "YOLO", "VLMs"],
+  },
+  {
+    Icon: Database,
+    title: "Retrieval & Data Systems",
+    text: "RAG and GraphRAG over enterprise data: embeddings, semantic and hybrid search, vector databases, knowledge graphs and LLM-enriched ingestion.",
+    badges: ["PostgreSQL", "pgvector", "MongoDB", "Neo4j", "FAISS", "ChromaDB", "LlamaIndex"],
+  },
+  {
+    Icon: Cloud,
+    title: "Cloud & Production Infrastructure",
+    text: "Containerized services and data pipelines on AWS and GCP, with production monitoring, reliability work and privacy and PII controls.",
+    badges: ["AWS", "GCP", "Azure", "Bedrock", "SageMaker", "Vertex AI", "Docker", "Kubernetes"],
+  },
+  {
+    Icon: Activity,
+    title: "Evaluation & Observability",
+    text: "Prompt versioning, quality gates, distributed tracing and failure analysis — plus token-usage and inference-cost analysis, because quality, latency and cost are design decisions.",
+    badges: ["OpenTelemetry", "LangSmith", "MLflow", "Evals"],
+  },
+  {
+    Icon: Users,
+    title: "Engineering Delivery",
+    text: "Requirements discovery, stakeholder alignment, technical scoping and architecture decisions, carried through cross-functional delivery to production readiness; mentoring along the way.",
+    badges: ["Discovery", "Technical scoping", "Mentoring"],
   },
 ];
 
@@ -75,20 +77,20 @@ export default function Expertise() {
         <Reveal className="section-header reveal">
           <span className="section-label">Core Expertise</span>
           <h2>
-            From data foundations to
+            Software engineering,
             <br />
-            <span className="text-gradient">agentic systems</span>
+            <span className="text-gradient">specialized in AI</span>
           </h2>
           <p>
-            My path didn&apos;t start with LLM APIs — it started in data. Statistics and classical
-            machine learning, then deep learning and NLP, and naturally into LLM-powered retrieval
-            and the multi-agent systems I build today. Every layer still runs underneath the next.
+            My work connects AI capabilities with the software, infrastructure and engineering
+            decisions needed to make them reliable in production: interfaces, orchestration, data,
+            security, evaluation, observability, latency and cost.
           </p>
         </Reveal>
 
         {/* evolution path */}
         <Reveal className="reveal">
-          <ol className="evo-path" aria-label="Career progression">
+          <ol className="evo-path" aria-label="Career journey">
             {EVOLUTION.map((label, i) => (
               <Fragment key={label}>
                 {i > 0 && <li className="evo-line" aria-hidden="true"></li>}

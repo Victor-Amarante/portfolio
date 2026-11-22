@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
-import { FlaskConical, GraduationCap, Microscope, Rocket } from "lucide-react";
+import { GraduationCap, Microscope, Rocket } from "lucide-react";
 
-// Career timeline, newest first. `now` adds the highlighted "present" date chip.
+// Employment timeline, newest first. Titles are the ones on the employment
+// record (the CV), not the public positioning title used in the hero.
+// `now` adds the highlighted "present" date chip.
 export type Role = {
   role: string;
   company: string;
@@ -14,147 +16,155 @@ export type Role = {
 
 export const EXPERIENCE: Role[] = [
   {
-    role: "Senior Applied AI Engineer",
-    company: "Getronics · Amsterdam (Remote)",
+    role: "Senior AI/ML Engineer",
+    company: "Getronics · Remote · Embedded at Banco do Brasil",
     date: "May 2026 — Present",
     now: true,
     desc: (
       <>
-        Embedded in a high-seniority squad at one of Brazil&apos;s largest financial institutions,
-        owning the full AI model lifecycle for a card-services digital assistant designed to reach{" "}
-        <strong>millions of users</strong> at launch.
+        Technical delivery for a card-services AI assistant{" "}
+        <strong>designed for millions of users</strong> — from requirements discovery and solution
+        architecture to implementation, enterprise integration and production monitoring.
       </>
     ),
     points: [
       <>
-        Architected a multi-agent system — orchestrator + specialist agent as independent
-        microservices communicating over the <strong>A2A protocol</strong>.
+        Architected a multi-agent system: an orchestrator and specialist services deployed as
+        independent microservices, working with the bank&apos;s architects and engineers.
       </>,
       <>
-        Built tool and service integrations through <strong>MCP &amp; A2A</strong>; deployed
-        cloud-native on Docker &amp; Kubernetes.
+        Integrated banking capabilities through REST APIs, <strong>MCP</strong> (Model Context
+        Protocol) and <strong>A2A</strong> (agent-to-agent communication).
       </>,
-      <>Owned AI compliance: input/output filtering, PII handling and Brazilian financial-sector regulation.</>,
       <>
-        Instrumented observability and operational reliability with <strong>OpenTelemetry</strong>.
+        Turned business, security and regulatory constraints into production safeguards: input/output
+        filtering, PII handling and data privacy.
+      </>,
+      <>
+        Diagnose failures across agent and service boundaries with <strong>OpenTelemetry</strong>{" "}
+        distributed tracing; tune prompts and token consumption to cut latency and inference cost.
       </>,
     ],
-    tags: ["Multi-Agent", "A2A", "MCP", "Kubernetes", "OpenTelemetry"],
-  },
-  {
-    role: "AI Researcher",
-    company: "CIn/UFPE · Zup Innovation · Recife, Brazil",
-    date: "Mar 2026 — Present",
-    now: true,
-    desc: (
-      <>
-        Research on{" "}
-        <em>Role-Specialized Small Language Models for End-to-End Spec-Driven Software Development</em>{" "}
-        — can SLMs (≤10B params) fine-tuned per agent role match frontier LLMs on a complete
-        software-development pipeline?
-      </>
-    ),
-    points: [
-      <>
-        Fine-tuning small language models via <strong>LoRA</strong>, one specialization per agent
-        role, benchmarked against frontier models.
-      </>,
-      <>
-        Built <strong>Zup SDD Agents</strong>: a ~19-node LangGraph state machine that turns a User
-        Story into working, committed code.
-      </>,
-      <>Designed a dual quality gate — technical verification kept separate from business curation.</>,
-      <>Human-in-the-loop checkpoints via LangGraph interrupts.</>,
-    ],
-    tags: ["SLMs", "LoRA", "LangGraph", "Spec-Driven Dev"],
+    tags: ["Multi-Agent", "Microservices", "A2A", "MCP", "Kubernetes", "OpenTelemetry"],
   },
   {
     role: "AI/ML Engineer",
     company: "Amigo Tech · Recife, Brazil",
     date: "Sep 2025 — May 2026",
-    desc: <>Led AI development on Amigo Flow, architecting a supervised multi-agent system applied to the patient journey.</>,
+    desc: (
+      <>
+        Led engineering of <strong>Amigo Flow</strong>, a production multi-agent RAG system in
+        healthcare supporting tens of thousands of monthly appointments.
+      </>
+    ),
     points: [
       <>
-        <strong>7.5× increase</strong> in automated scheduling and <strong>200%+ growth</strong> in
-        confirmation rate — scaled to tens of thousands of monthly appointments.
+        Automated scheduling increased <strong>7.5×</strong> and confirmations by{" "}
+        <strong>more than 200%</strong>.
       </>,
       <>
-        Redesigned core architecture around a multi-agent pattern → <strong>~90%</strong>{" "}
-        improvement in production response quality.
+        Redesigned the core AI application architecture, improving response quality and accuracy by
+        approximately <strong>90%</strong>; established version-controlled prompts, iterative
+        evaluation and token-consumption analysis.
       </>,
       <>
-        Built a medical-imaging pipeline: YOLO detection on dental X-rays + a VLM generating
-        natural-language diagnostic reports.
+        Built an end-to-end dental X-ray pipeline — data annotation, YOLO training and structured
+        reports from a vision-language model (VLM).
       </>,
-      <>Shipped containerized microservices (FastAPI, Docker) with LangSmith monitoring.</>,
+      <>Implemented LangSmith tracing and monitoring for the production agent workflows.</>,
+      <>
+        Worked with Product, Quality and engineering on requirements, priorities, dependencies,
+        delivery and post-release improvements.
+      </>,
     ],
-    tags: ["Multi-Agent", "YOLO", "VLM", "LangSmith"],
+    tags: ["Multi-Agent", "RAG", "LangSmith", "YOLO", "VLM"],
   },
   {
     role: "Data Scientist",
     company: "C.E.S.A.R · Recife, Brazil",
     date: "Jul 2024 — Sep 2025",
-    desc: <>Built GenAI knowledge-retrieval systems and a production GraphRAG platform for enterprise data.</>,
+    desc: <>Backend services and retrieval architectures that brought generative AI into client systems.</>,
     points: [
       <>
-        Designed a corporate knowledge-retrieval system with GenAI — LangChain/LangGraph,
-        PostgreSQL &amp; pgvector.
+        Backend development with Django, Django REST Framework and FastAPI, applying hexagonal
+        architecture, DDD, SOLID and clean code.
       </>,
       <>
-        Built <strong>GraphRAG on Neo4j</strong> for a logistics platform, combining vector search
-        with entity-relationship traversal.
+        Designed enterprise retrieval on <strong>PostgreSQL/pgvector</strong> for semantic search and
+        contextual generation, and <strong>GraphRAG on Neo4j</strong> for previously siloed logistics
+        data.
       </>,
       <>
-        Deployed pipelines on AWS (S3, SageMaker, Bedrock) &amp; GCP Vertex AI; followed Hexagonal
-        Architecture &amp; DDD.
+        Engineered an LLM-enriched transportation data-ingestion platform on AWS S3, with assisted
+        knowledge-graph construction and containerized pipelines across AWS and GCP.
       </>,
-      <>Delivered 20+ hours of in-person data training for SEBRAE analysts.</>,
+      <>
+        Worked directly with clients to turn business and data requirements into technical
+        implementation plans; delivered 20+ hours of data-analysis training for SEBRAE analysts.
+      </>,
     ],
-    tags: ["GraphRAG", "Neo4j", "Bedrock", "Vertex AI"],
+    tags: ["Django", "FastAPI", "pgvector", "GraphRAG", "Neo4j", "Bedrock", "Vertex AI"],
   },
   {
     role: "Data Scientist",
     company: "Queiroz Cavalcanti Advocacia · Recife",
     date: "Nov 2022 — Jun 2024",
-    desc: <>Predictive ML pipelines for Legal Controlling and the firm&apos;s first generative-AI prototypes.</>,
+    desc: <>Software, data and ML applied to legal operations — where building software became part of the daily work.</>,
     points: [
       <>
-        Time-series forecasting &amp; classification (Scikit-learn, Pandas, NumPy) with{" "}
-        <strong>90%+</strong> efficiency gains across <strong>50+ projects</strong>.
+        Led discovery, technical planning and adoption for <strong>50+</strong> automation, analytics
+        and machine-learning initiatives in Legal Controlling.
       </>,
       <>
-        Averaged <strong>3–4 hours saved per case</strong> — up to <strong>90 hours/month</strong>{" "}
-        on a single initiative.
+        Forecasting, classification and process-automation pipelines with <strong>90%+</strong>{" "}
+        efficiency gains in selected workflows — typically 3–4 hours saved per optimized process, up
+        to 90 hours a month in one initiative.
       </>,
-      <>Led an internal training program — 80%+ adoption across 40+ professionals.</>,
-      <>Prototyped early GenAI use cases: meeting summarization and email prioritization.</>,
+      <>
+        Statistical pipelines and Power BI dashboards for KPI monitoring; led an automation and data
+        training adopted by 80%+ of 40+ professionals.
+      </>,
+      <>
+        Early generative-AI prototypes in late 2023 and early 2024: meeting summarization and
+        intelligent email prioritization, built in Python/Streamlit on OpenAI APIs.
+      </>,
     ],
-    tags: ["Forecasting", "Power BI", "Scikit-learn"],
+    tags: ["Automation", "Forecasting", "Scikit-learn", "Power BI"],
   },
   {
     role: "Data Scientist",
     company: "Fisher Consultoria Estatística · Recife",
     date: "Jul 2021 — Jul 2023",
-    desc: <>Where the career started — the mathematical foundation applied to real problems, end to end.</>,
+    desc: <>Where it started: statistical consulting, from formulating the problem to explaining the result.</>,
     points: [
       <>
-        Delivered <strong>10+ complete statistical consulting projects</strong> for healthcare
+        Delivered <strong>10+ end-to-end statistical consulting projects</strong> for healthcare
         clients.
       </>,
-      <>Statistical modeling, sampling and EDA — from problem framing with the client to the formal report.</>,
+      <>Problem formulation, sampling design, statistical modeling, hypothesis testing and formal reporting.</>,
+      <>Translated quantitative analysis into visualizations and recommendations for non-technical stakeholders.</>,
     ],
-    tags: ["Statistics", "R", "EDA"],
+    tags: ["Statistics", "R", "EDA", "Sampling", "Hypothesis Testing"],
   },
 ];
 
-// Parallel ventures shown under the timeline.
+// Research, ventures and community, shown under the timeline. `wide` spans the row.
 export const VENTURES = [
   {
-    Icon: GraduationCap,
-    role: "Co-Founder & Director of Education",
-    org: "LIGIA — AI Academic League @ UFPE",
-    meta: "Dec 2024 — Mar 2026",
-    text: <>Structured ML, NLP &amp; Computer Vision learning tracks; mentored student leaders toward technical excellence.</>,
+    Icon: Microscope,
+    role: "AI Researcher",
+    org: "CIn/UFPE · Applied research with Zup Innovation",
+    meta: "Mar 2026 — Present",
+    wide: true,
+    text: (
+      <>
+        Architected <strong>Zup SDD Agents</strong>, a LangGraph system that takes user stories
+        through specification, supervised planning, specialist execution, verification and business
+        review, with human-in-the-loop checkpoints. Ongoing research on role-specialized small language
+        models (up to 10B parameters): task quality, latency, inference cost and on-premises
+        feasibility.
+      </>
+    ),
   },
   {
     Icon: Rocket,
@@ -163,23 +173,16 @@ export const VENTURES = [
     meta: "Nov 2023 — Jul 2024",
     text: (
       <>
-        AI platform for automatic ENEM essay correction. <strong>1st place</strong> at PoloTec
+        LLM-powered feedback on ENEM essays. <strong>1st place</strong> at UFPE&apos;s PoloTec
         Pre-Incubation &amp; DemoDay 2024.
       </>
     ),
   },
   {
-    Icon: FlaskConical,
-    role: "AI Researcher",
-    org: "GERAIA — Generative AI Research Group",
-    meta: "Jan 2024 — Mar 2026",
-    text: <>Applied research on LLMs, multi-agent architectures &amp; RAG for autonomous simulations and distributed intelligence.</>,
-  },
-  {
-    Icon: Microscope,
-    role: "Scientific Researcher",
-    org: "FACEPE / INES",
-    meta: "Jul 2023 — Jan 2024",
-    text: <>HCI &amp; accessible mobile applications research for individuals with Autism Spectrum Disorder.</>,
+    Icon: GraduationCap,
+    role: "Co-Founder & Director of Education",
+    org: "LIGIA — UFPE Academic AI League",
+    meta: "Dec 2024 — Mar 2026",
+    text: <>Created ML, NLP and computer-vision learning tracks for 30–40 active members; mentored student leaders.</>,
   },
 ];

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
+import { CONTACT } from "@/data/contact";
 import "./globals.css";
 
 // only the weights the design system uses: 400 body, 500 labels, 600 headings
@@ -10,10 +11,24 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+const TITLE = "Victor Amarante | Senior Software Engineer, AI";
+const DESCRIPTION =
+  "Senior Software Engineer specializing in AI and machine learning, with expertise in software architecture, backend engineering, distributed systems and agentic AI.";
+
 export const metadata: Metadata = {
-  title: "Victor Amarante — Senior Applied AI Engineer",
-  description:
-    "Victor Amarante — Senior Applied AI Engineer specializing in LLMs & agentic systems: multi-agent architectures, RAG & GraphRAG, LLMOps. A statistics foundation applied to AI systems running in production at scale.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    type: "profile",
+    title: TITLE,
+    description: DESCRIPTION,
+    url: CONTACT.site,
+    siteName: "Victor Amarante",
+    locale: "en_US",
+    firstName: "Victor",
+    lastName: "Amarante",
+  },
+  twitter: { card: "summary", title: TITLE, description: DESCRIPTION },
 };
 
 export const viewport: Viewport = {

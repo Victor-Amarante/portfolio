@@ -11,16 +11,16 @@ export default function Contact() {
       <SiteWave />
       <div className="container contact-inner">
         <Reveal className="reveal">
-          <span className="section-label">Let&apos;s build something intelligent</span>
+          <span className="section-label">Get in touch</span>
           <h2 className="contact-title">
-            Have a hard AI problem
+            Let&apos;s build reliable
             <br />
-            <span className="text-gradient">worth solving?</span>
+            <span className="text-gradient">AI-powered software.</span>
           </h2>
           <p className="contact-sub">
-            I&apos;m open to senior and staff-level applied AI engineering roles and select
-            collaborations. If you&apos;re building agentic systems, retrieval infrastructure, or
-            anything at the frontier — let&apos;s talk.
+            I&apos;m always open to conversations about software architecture, backend engineering,
+            distributed systems and applied AI — particularly projects that connect technical depth
+            with real product impact.
           </p>
           <div className="contact-actions">
             <a href={`mailto:${CONTACT.email}`} className="btn btn-primary">

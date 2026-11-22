@@ -3,14 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
 
+// Grouped loosely by domain: software, data, agentic AI, LLMOps, cloud, ML.
 const TOOLKIT = [
-  "Python", "NumPy", "Pandas", "SciPy", "Statsmodels",
-  "Scikit-learn", "MLflow", "PyTorch", "TensorFlow", "spaCy",
-  "NLTK", "YOLO", "Power BI", "SQL", "FAISS",
-  "ChromaDB", "Neo4j", "pgvector", "RAG", "GraphRAG",
-  "LangChain", "LangGraph", "LlamaIndex", "CrewAI", "Agno",
-  "Claude", "GPT", "Gemini", "Bedrock", "Vertex AI",
-  "SageMaker", "FastAPI", "Docker", "Kubernetes", "LangSmith", "OpenTelemetry", "MCP", "A2A", "LoRA",
+  "Python", "TypeScript", "FastAPI", "Django", "SQLAlchemy",
+  "PostgreSQL", "SQL", "MongoDB", "pgvector", "FAISS", "ChromaDB", "Neo4j",
+  "RAG", "GraphRAG", "LangChain", "LangGraph", "LlamaIndex", "Agno", "CrewAI", "MCP", "A2A",
+  "Claude", "GPT", "Gemini", "LoRA",
+  "LangSmith", "OpenTelemetry", "MLflow",
+  "AWS", "GCP", "Azure", "Bedrock", "Vertex AI", "SageMaker", "Docker", "Kubernetes",
+  "PyTorch", "TensorFlow", "Scikit-learn", "spaCy", "NLTK", "YOLO",
+  "Pandas", "NumPy", "SciPy", "Statsmodels", "Plotly", "Power BI", "Selenium",
 ];
 
 /* Toolkit marquee — pauses on hover/focus, offscreen, and from
@@ -33,8 +35,8 @@ export default function Trust() {
     <section id="trust" ref={ref} aria-labelledby="trust-label">
       <div className="container trust-head">
         <p className="trust-label" id="trust-label">
-          From statistics and classical ML to deep learning and agentic systems — the full toolkit
-          I&apos;ve shipped with
+          The toolkit behind the work — from backend services and retrieval to agentic systems and
+          machine learning
         </p>
         <button
           type="button"

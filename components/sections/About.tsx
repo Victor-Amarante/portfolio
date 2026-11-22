@@ -1,12 +1,16 @@
-import { BrainCircuit, GraduationCap, Languages, MapPin } from "lucide-react";
+import { BrainCircuit, Briefcase, GraduationCap, MapPin } from "lucide-react";
 import Reveal from "../Reveal";
 import { asset } from "@/lib/asset";
 
 const FACTS = [
-  { Icon: GraduationCap, title: "Education", text: "Information Systems @ CIn/UFPE · from Statistics" },
-  { Icon: BrainCircuit, title: "Specialization", text: "LLMs & Agentic Systems · RAG/GraphRAG" },
-  { Icon: MapPin, title: "Based in", text: "Recife, Brazil — working globally" },
-  { Icon: Languages, title: "Currently", text: "Senior Applied AI Engineer @ Getronics · AI Researcher @ CIn" },
+  {
+    Icon: GraduationCap,
+    title: "Education",
+    text: "B.Sc. Information Systems @ CIn/UFPE (expected Dec 2026) · began in Statistics",
+  },
+  { Icon: BrainCircuit, title: "Specialization", text: "Artificial Intelligence & Machine Learning" },
+  { Icon: MapPin, title: "Based in", text: "Recife, Brazil — working remotely" },
+  { Icon: Briefcase, title: "Currently", text: "Getronics, embedded at Banco do Brasil · AI research at CIn/UFPE" },
 ];
 
 export default function About() {
@@ -28,25 +32,30 @@ export default function About() {
         <Reveal className="about-content reveal-right">
           <span className="section-label">Who I am</span>
           <h2>
-            An Applied AI Engineer who <span className="text-gradient">builds systems that ship.</span>
+            From quantitative foundations to{" "}
+            <span className="text-gradient">production software.</span>
           </h2>
           <p className="about-lead">
-            I&apos;m Victor Amarante, a Senior Applied AI Engineer working on{" "}
-            <strong>LLMs &amp; agentic systems</strong>. I started in <strong>Statistics</strong> at
-            UFPE&apos;s CCEN — probability, linear algebra, numerical calculus — and transferred to
-            Information Systems at the <strong>CIn/UFPE</strong> to pair that math with real systems
-            engineering.
+            I&apos;m Victor Amarante, a <strong>Senior Software Engineer</strong> specializing in{" "}
+            <strong>Artificial Intelligence and Machine Learning</strong>, with 5+ years across
+            statistical consulting, intelligent automation, applied ML and production software in
+            banking, healthcare, logistics and legal operations.
           </p>
           <p>
-            The progression was a natural one: statistics → classical machine learning → deep
-            learning → LLMs → agentic systems. Each layer still runs underneath the next. It&apos;s
-            why I can reason about what actually happens inside a model <em>and</em> put it in
-            production across <strong>healthcare, fintech, legal and logistics</strong>.
+            My path into software engineering began with statistics, probability, machine learning and
+            intelligent automation. As the work moved from statistical models and automated workflows to
+            generative AI applications, I became increasingly focused on the architecture of the
+            software that makes AI useful in real products.
           </p>
           <p>
-            Today my focus is autonomous intelligent systems: LLM orchestration, agentic workflows,
-            and RAG/GraphRAG retrieval — built to be observable, evaluated and reliable under real
-            traffic.
+            Today my work brings together <strong>backend engineering, distributed systems, agentic AI
+            and system design</strong>. I care about how models behave <em>and</em> about the qualities
+            that decide whether they hold up in production: security, maintainability, observability,
+            scalability, latency and cost.
+          </p>
+          <p>
+            I enjoy turning complex AI ideas into dependable software, and making the engineering
+            decisions that connect what&apos;s technically possible with what a product actually needs.
           </p>
           <div className="about-facts">
             {FACTS.map(({ Icon, title, text }) => (

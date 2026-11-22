@@ -1,5 +1,6 @@
-// Shared by the Contact section and the footer.
+// Shared by the Contact section, the footer and the page metadata.
 export const CONTACT = {
+  site: "https://victor-amarante.github.io/portfolio/",
   email: "victoramarante.tech@gmail.com",
   linkedin: "https://www.linkedin.com/in/vamarante",
   github: "https://github.com/Victor-Amarante",

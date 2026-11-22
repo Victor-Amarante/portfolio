@@ -7,22 +7,25 @@ export default function Experience() {
     <section className="section" id="experience">
       <div className="container">
         <Reveal className="section-header reveal">
-          <span className="section-label">Career</span>
+          <span className="section-label">Experience</span>
           <h2>
-            A track record built <span className="text-gradient">in production</span>
+            From statistics to <span className="text-gradient">production AI systems</span>
           </h2>
           <p>
-            Five years across financial institutions, healthcare, R&amp;D centers and legal — always
-            owning the full model lifecycle, from conception to production monitoring.
+            One continuous progression: statistical consulting, intelligent automation, generative AI
+            and backend architecture, then agentic systems in production — across banking, healthcare,
+            logistics and legal operations.
           </p>
         </Reveal>
         <Timeline />
 
-        {/* Parallel ventures */}
-        <h3 className="ventures-head">In parallel</h3>
+        {/* Research, ventures & community */}
+        <h3 className="ventures-head" id="research">
+          Research, ventures &amp; community
+        </h3>
         <Reveal className="ventures reveal">
-          {VENTURES.map(({ Icon, role, org, meta, text }) => (
-            <div key={org} className="venture-card">
+          {VENTURES.map(({ Icon, role, org, meta, wide, text }) => (
+            <div key={org} className={wide ? "venture-card venture-wide" : "venture-card"}>
               <div className="venture-icon">
                 <Icon />
               </div>

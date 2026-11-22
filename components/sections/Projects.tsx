@@ -2,10 +2,13 @@ import type { ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 import Reveal from "../Reveal";
 
-// `flag` marks internal work (rendered as a static card); `href` turns the
-// card into an outbound link with an arrow instead.
+// Each card is a short case study: what it is (`sub`), Victor's part in it
+// (`role`), then contribution and outcome (`desc`). `flag` marks internal
+// work (rendered as a static card); `href` turns the card into an outbound
+// link with an arrow instead. Enterprise work stays at a non-confidential level.
 type Project = {
   title: string;
+  role: string;
   sub: string;
   desc: ReactNode;
   tags: string[];
@@ -15,61 +18,101 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
-    title: "Zup SDD Agents",
-    flag: "Research",
-    sub: "Spec-driven development as a multi-agent pipeline",
-    desc: (
-      <>
-        A ~19-node LangGraph state machine that carries a User Story all the way to committed code
-        — role-specialized agents, a dual quality gate separating technical verification from
-        business curation, and human-in-the-loop interrupts. Built at CIn/UFPE with Zup Innovation.
-      </>
-    ),
-    tags: ["LangGraph", "SLMs", "LoRA", "Multi-Agent"],
-  },
-  {
     title: "Amigo Flow",
     flag: "Production",
-    sub: "Supervised multi-agent system for the patient journey",
+    role: "Led engineering · Amigo Tech",
+    sub: "Multi-agent RAG system for the patient journey",
     desc: (
       <>
-        Orchestrator and specialist agents covering scheduling, confirmation and triage across tens
-        of thousands of monthly appointments — <strong>7.5×</strong> automated scheduling,{" "}
-        <strong>200%+</strong> confirmation rate and <strong>~90%</strong> better response quality
-        after the multi-agent redesign.
+        An orchestrator, specialist agents and dedicated RAG pipelines supporting tens of thousands of
+        monthly appointments. I redesigned the core AI application architecture and set up
+        version-controlled prompts, iterative evaluation, token-consumption analysis and LangSmith
+        tracing. Automated scheduling grew <strong>7.5×</strong>, confirmations more than{" "}
+        <strong>200%</strong>, and response quality and accuracy improved by about{" "}
+        <strong>90%</strong>.
       </>
     ),
-    tags: ["Multi-Agent", "LangGraph", "LangSmith", "FastAPI"],
+    tags: ["Multi-Agent", "RAG", "LangGraph", "LangSmith", "FastAPI"],
   },
   {
-    title: "GraphRAG for Logistics",
-    flag: "Production",
-    sub: "Knowledge graph + vector search over siloed data",
+    title: "Card-Services AI Assistant",
+    flag: "Enterprise · Current",
+    role: "Senior AI/ML Engineer · Getronics at Banco do Brasil",
+    sub: "A banking assistant designed for millions of users",
     desc: (
       <>
-        A Neo4j knowledge graph paired with vector retrieval so a logistics platform could answer
-        questions that span systems — entity-relationship traversal where flat semantic search
-        returned fragments. Delivered at C.E.S.A.R.
+        An orchestrator and specialist services run as independent microservices, integrated with
+        banking systems over REST, MCP and A2A. My work spans the architecture and implementation,
+        PII and input/output safeguards, and failure diagnosis with OpenTelemetry — weighing response
+        quality against latency, token consumption and inference cost.
       </>
     ),
-    tags: ["GraphRAG", "Neo4j", "pgvector", "Bedrock"],
+    tags: ["Multi-Agent", "Microservices", "MCP", "A2A", "OpenTelemetry"],
+  },
+  {
+    title: "Zup SDD Agents",
+    flag: "Research",
+    role: "Architect · CIn/UFPE with Zup Innovation",
+    sub: "Agentic software engineering, from user story to committed code",
+    desc: (
+      <>
+        A LangGraph state machine that takes a user story through specification, supervised
+        planning, specialist execution, verification and business review. Persistent agent
+        handoffs, structured reasoning events, SSE streaming and optional tracing make each run
+        inspectable; technical quality gates and business-alignment checks with human-in-the-loop
+        checkpoints keep it on track. The research around it — role-specialized small language
+        models — is ongoing.
+      </>
+    ),
+    tags: ["LangGraph", "SSE", "Human-in-the-loop", "SLMs", "LoRA", "Multi-Agent"],
+  },
+  {
+    title: "Enterprise Retrieval & GraphRAG",
+    flag: "Enterprise",
+    role: "Data Scientist · C.E.S.A.R",
+    sub: "Retrieval architectures over siloed enterprise data",
+    desc: (
+      <>
+        Semantic search and contextual generation on PostgreSQL/pgvector, and a Neo4j GraphRAG
+        solution that combines vector search with entity-relationship traversal over previously
+        siloed logistics data — fed by an LLM-enriched ingestion platform and containerized pipelines
+        on AWS and GCP.
+      </>
+    ),
+    tags: ["RAG", "GraphRAG", "pgvector", "Neo4j", "Bedrock", "AWS"],
+  },
+  {
+    title: "Dental X-Ray Analysis",
+    flag: "Computer Vision",
+    role: "End-to-end build · Amigo Tech",
+    sub: "From annotated images to structured reports",
+    desc: (
+      <>
+        An applied deep-learning pipeline built end to end: data annotation, YOLO object-detection
+        training, and a vision-language model that turns the detections into structured reports in
+        natural language.
+      </>
+    ),
+    tags: ["YOLO", "VLM", "Deep Learning", "Data Annotation"],
   },
   {
     title: "Redduo.AI",
     flag: "1st · PoloTec 2024",
-    sub: "LLM-based essay grading for Brazil's ENEM",
+    role: "Co-founder & ML Engineer",
+    sub: "LLM-powered feedback on ENEM essays",
     desc: (
       <>
-        An AI platform that grades ENEM essays against the exam&apos;s five official competencies
-        and returns structured feedback — first place at the PoloTec Pre-Incubation &amp; DemoDay
-        2024.
+        Personalized feedback on essays for Brazil&apos;s ENEM exam. I owned the data pipelines,
+        backend architecture, cloud and model integrations, scalability and evaluation consistency.
+        First place at UFPE&apos;s PoloTec Pre-Incubation and DemoDay 2024.
       </>
     ),
-    tags: ["LLMs", "Prompt Engineering", "Evals", "Python"],
+    tags: ["LLMs", "NLP", "Prompt Engineering", "Evals", "Python"],
   },
   {
     title: "Conecte.se",
     href: "https://github.com/Victor-Amarante/conecte.se",
+    role: "Open source",
     sub: "Real-time public-transit monitoring chatbot",
     desc: (
       <>
@@ -83,6 +126,7 @@ const PROJECTS: Project[] = [
   {
     title: "InsightTalk.AI",
     href: "https://github.com/Victor-Amarante/ai-agent-data-analysis",
+    role: "Open source",
     sub: "AI agent for data analysis via voice",
     desc: (
       <>
@@ -103,6 +147,7 @@ function ProjectBody({ project, index }: { project: Project; index: number }) {
         {project.href && <ArrowUpRight className="project-arrow" aria-hidden="true" />}
       </div>
       <h3 className="project-title">{project.title}</h3>
+      <p className="project-role">{project.role}</p>
       <p className="project-sub">{project.sub}</p>
       <p className="project-desc">{project.desc}</p>
       <div className="project-tags">
@@ -122,13 +167,14 @@ export default function Projects() {
     <section className="section section-alt" id="projects">
       <div className="container">
         <Reveal className="section-header reveal">
-          <span className="section-label">Selected Projects</span>
+          <span className="section-label">Selected Work</span>
           <h2>
-            Things I&apos;ve designed <span className="text-gradient">and shipped</span>
+            Systems I&apos;ve built, <span className="text-gradient">and what they changed</span>
           </h2>
           <p>
-            The systems I&apos;m proudest of — multi-agent pipelines and retrieval architectures
-            running in production, plus open-source work you can read end to end.
+            Production, enterprise and research work — my part in each, the engineering behind it and
+            the measured result — plus open-source projects you can read end to end. Enterprise work
+            is described at a non-confidential level.
           </p>
         </Reveal>
         <Reveal className="projects-grid stagger-up">

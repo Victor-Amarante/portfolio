@@ -12,8 +12,8 @@ export default function Footer() {
             Victor<span>Amarante</span>
           </a>
           <p>
-            Senior Applied AI Engineer — LLMs &amp; agentic systems, RAG/GraphRAG and LLMOps, from
-            research to production scale.
+            Senior Software Engineer, AI — AI systems architecture, backend engineering, distributed
+            systems and agentic AI.
           </p>
         </div>
         <div className="footer-right">

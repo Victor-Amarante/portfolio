@@ -653,6 +653,13 @@ button {
   margin-bottom: var(--space-6);
   box-shadow: var(--shadow-sm);
 }
+.hero-eyebrow strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.hero-eyebrow-sep {
+  color: var(--text-muted);
+}
 .pulse-dot {
   width: 8px;
   height: 8px;
@@ -671,7 +678,31 @@ button {
   font-size: var(--font-body-large);
   line-height: 1.6;
   max-width: 56ch;
+  margin-bottom: var(--space-5);
+}
+/* the four core competencies; each item carries its own dot so wrapped
+   lines never start with a stray separator */
+.hero-specialization {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
   margin-bottom: var(--space-7);
+  font-size: var(--font-small);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.hero-specialization li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.hero-specialization li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 .hero-ctas {
   display: flex;
@@ -1174,7 +1205,7 @@ button {
   font-variant-numeric: tabular-nums;
 }
 .evo-label {
-  max-width: 130px;
+  max-width: 150px;
   font-size: var(--font-small);
   font-weight: 500;
   line-height: 1.4;
@@ -1331,6 +1362,10 @@ button {
   font-weight: 500;
   color: var(--text-primary);
 }
+.globe-list li > span {
+  font-weight: 400;
+  color: var(--text-secondary);
+}
 .globe-list svg {
   width: 20px;
   height: 20px;
@@ -1385,6 +1420,13 @@ button {
   font-size: var(--font-small);
   line-height: 1.45;
   color: var(--text-secondary);
+}
+/* where the number comes from — proof points keep their scope visible */
+.metric-context {
+  margin-top: auto;
+  font-size: var(--font-label);
+  font-weight: 500;
+  color: var(--text-muted);
 }
 
 /* ============================================================ TIMELINE */
@@ -1551,6 +1593,9 @@ button {
   border: 1px solid var(--border);
   background: var(--surface);
 }
+.venture-wide {
+  grid-column: 1 / -1;
+}
 .venture-card > :not(.venture-icon) {
   grid-column: 2;
 }
@@ -1657,8 +1702,14 @@ a.project-card:hover .project-arrow {
 .project-title {
   font-size: var(--font-h3);
 }
+.project-role {
+  margin-top: var(--space-1);
+  font-size: var(--font-small);
+  font-weight: 500;
+  color: var(--text-muted);
+}
 .project-sub {
-  margin: var(--space-1) 0 var(--space-4);
+  margin: var(--space-3) 0 var(--space-4);
   font-size: var(--font-body);
   font-weight: 500;
   color: var(--action);

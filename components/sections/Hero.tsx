@@ -1,11 +1,18 @@
 import { ArrowRight, Mail } from "lucide-react";
 import HeroVisual from "../HeroVisual";
 
+const SPECIALIZATION = [
+  "AI Systems Architecture",
+  "Backend Engineering",
+  "Distributed Systems",
+  "Agentic AI",
+];
+
 const METRICS = [
-  { val: "5+", label: "Years in production AI" },
-  { val: "7.5×", label: "Automated scheduling lift" },
-  { val: "4", label: "Industries shipped in" },
-  { val: "50+", label: "Automation projects" },
+  { val: "5+", label: "Years across ML, automation and software" },
+  { val: "4", label: "Industries, from banking to healthcare" },
+  { val: "10k+", label: "Monthly appointments on a platform I led" },
+  { val: "50+", label: "Automation, analytics and ML initiatives" },
 ];
 
 export default function Hero() {
@@ -13,19 +20,26 @@ export default function Hero() {
     <section id="hero">
       <div className="container hero-inner">
         <div className="hero-copy">
-          <div className="hero-eyebrow">
-            <span className="pulse-dot"></span>Senior Applied AI Engineer · 5+ years in production
-          </div>
+          <p className="hero-eyebrow">
+            <span className="pulse-dot"></span>
+            Victor Amarante<span className="hero-eyebrow-sep" aria-hidden="true">·</span>
+            <strong>Senior Software Engineer, AI</strong>
+          </p>
           <h1 className="hero-title">
-            Engineering intelligence,
+            Engineering intelligent
             <br />
-            <span className="text-gradient">from research to scale.</span>
+            systems <span className="text-gradient">for production.</span>
           </h1>
           <p className="hero-subtitle">
-            I build LLM-powered and agentic systems on a real mathematical foundation — statistics,
-            probability and applied ML — and take them all the way to production: orchestration,
-            retrieval, evaluation and observability at scale.
+            I design and build reliable, scalable AI-powered software, combining software
+            architecture, backend engineering and distributed systems with a strong foundation in
+            artificial intelligence and machine learning.
           </p>
+          <ul className="hero-specialization" aria-label="Core expertise">
+            {SPECIALIZATION.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ul>
           <div className="hero-ctas">
             <a href="#projects" className="btn btn-primary">
               Explore my work
