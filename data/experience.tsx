@@ -16,7 +16,7 @@ export type Role = {
 
 export const EXPERIENCE: Role[] = [
   {
-    role: "Senior AI/ML Engineer",
+    role: "Senior Software Engineer, AI",
     company: "Getronics · Remote · Embedded at Banco do Brasil",
     date: "May 2026 — Present",
     now: true,
@@ -45,10 +45,10 @@ export const EXPERIENCE: Role[] = [
         distributed tracing; tune prompts and token consumption to cut latency and inference cost.
       </>,
     ],
-    tags: ["Multi-Agent", "Microservices", "A2A", "MCP", "Kubernetes", "OpenTelemetry"],
+    tags: ["Software Architecture", "System Design", "Backend Engineering", "Distributed Systems", "Microservices", "Agentic AI", "MCP", "A2A", "Kubernetes", "OpenTelemetry"],
   },
   {
-    role: "AI/ML Engineer",
+    role: "AI Engineer",
     company: "Amigo Tech · Recife, Brazil",
     date: "Sep 2025 — May 2026",
     desc: (
@@ -80,7 +80,7 @@ export const EXPERIENCE: Role[] = [
     tags: ["Multi-Agent", "RAG", "LangSmith", "YOLO", "VLM"],
   },
   {
-    role: "Data Scientist",
+    role: "AI Engineer",
     company: "C.E.S.A.R · Recife, Brazil",
     date: "Jul 2024 — Sep 2025",
     desc: <>Backend services and retrieval architectures that brought generative AI into client systems.</>,
@@ -106,7 +106,7 @@ export const EXPERIENCE: Role[] = [
     tags: ["Django", "FastAPI", "pgvector", "GraphRAG", "Neo4j", "Bedrock", "Vertex AI"],
   },
   {
-    role: "Data Scientist",
+    role: "Software Engineer (AI & Data)",
     company: "Queiroz Cavalcanti Advocacia · Recife",
     date: "Nov 2022 — Jun 2024",
     desc: <>Software, data and ML applied to legal operations — where building software became part of the daily work.</>,
