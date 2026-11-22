@@ -37,7 +37,7 @@ const PROJECTS: Project[] = [
   {
     title: "Card-Services AI Assistant",
     flag: "Enterprise · Current",
-    role: "Senior AI/ML Engineer · Getronics at Banco do Brasil",
+    role: "Senior Software Engineer, AI · Getronics at Banco do Brasil",
     sub: "A banking assistant designed for millions of users",
     desc: (
       <>
@@ -69,7 +69,7 @@ const PROJECTS: Project[] = [
   {
     title: "Enterprise Retrieval & GraphRAG",
     flag: "Enterprise",
-    role: "Data Scientist · C.E.S.A.R",
+    role: "AI Engineer · C.E.S.A.R",
     sub: "Retrieval architectures over siloed enterprise data",
     desc: (
       <>

@@ -1232,89 +1232,115 @@ button {
   font-weight: 600;
 }
 
-/* ============================================================ BENTO */
-.bento-grid {
+/* ============================================================ EXPERTISE */
+/* four pillars, read at a glance */
+.pillars {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-5);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
 }
-.bento-card {
+.pillar {
   display: flex;
   flex-direction: column;
+  padding: var(--space-6);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
-  padding: clamp(24px, 2.4vw, 32px);
+  box-shadow: var(--shadow-sm);
 }
-.bento-wide {
-  grid-column: span 2;
+.pillar-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-7);
 }
+.pillar-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--action-subtle);
+  color: var(--action);
+}
+.pillar-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.pillar-num {
+  font-size: var(--font-small);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.pillar-title {
+  margin-bottom: var(--space-2);
+  font-size: var(--font-h4);
+  letter-spacing: -0.015em;
+}
+.pillar-text {
+  font-size: var(--font-small);
+  line-height: 1.55;
+}
+
+/* the toolkit, as a spec sheet: domain on the left, chips on the right */
+.domains {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.domains-head {
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--border);
+  font-size: var(--font-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.domain-row {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-4) var(--space-6);
+}
+.domain-row + .domain-row {
+  border-top: 1px solid var(--border);
+}
+.domain-name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-body);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.domain-name svg {
+  width: 18px;
+  height: 18px;
+  color: var(--action);
+  flex-shrink: 0;
+}
+.domain-items {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.section-alt .domains .int-badge {
+  background: var(--background-secondary);
+  border-color: transparent;
+}
+
 #globe-section {
   padding-bottom: var(--space-8);
 }
 
-/* the "where I am now" card: the one expressive surface in the grid */
-.bento-feature {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 100% 0%, rgba(52, 136, 255, 0.14), transparent 60%),
-    radial-gradient(ellipse at 0% 100%, rgba(109, 217, 255, 0.1), transparent 50%),
-    var(--surface);
-  border-color: var(--soft-azure);
-  box-shadow: var(--shadow-md);
-}
-.bc-header {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-bottom: var(--space-4);
-}
-.bc-icon {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
-  background: var(--action-subtle);
-  color: var(--action);
-  flex-shrink: 0;
-}
-.bc-icon svg {
-  width: 22px;
-  height: 22px;
-}
-.bc-header-title {
-  flex: 1;
-  min-width: 0;
-  font-size: var(--font-h4);
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-}
-.bc-header-tag {
-  font-size: var(--font-label);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--action);
-  background: var(--action-subtle);
-  border-radius: var(--radius-full);
-  padding: 3px 10px;
-}
-.bc-body {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.bc-body p {
-  flex: 1;
-  font-size: var(--font-body);
-  margin-bottom: var(--space-5);
-}
-.bento-tags,
 .tl-tags,
 .project-tags {
   display: flex;
@@ -2409,6 +2435,9 @@ footer {
   }
 }
 @media (max-width: 1024px) {
+  .pillars {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .hero-inner {
     grid-template-columns: 1fr;
     gap: var(--space-7);
@@ -2458,12 +2487,16 @@ footer {
   #nav {
     height: 64px;
   }
-  .bento-grid,
   .projects-grid {
     grid-template-columns: 1fr;
   }
-  .bento-wide {
-    grid-column: auto;
+  .domain-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    padding: var(--space-5);
+  }
+  .domains-head {
+    padding: var(--space-5);
   }
   .evo-path {
     flex-direction: column;
@@ -2494,6 +2527,12 @@ footer {
   }
 }
 @media (max-width: 640px) {
+  .pillars {
+    grid-template-columns: 1fr;
+  }
+  .pillar-top {
+    margin-bottom: var(--space-5);
+  }
   .hero-metrics {
     grid-template-columns: 1fr 1fr;
     row-gap: var(--space-5);

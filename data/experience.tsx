@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import { GraduationCap, Microscope, Rocket } from "lucide-react";
 
-// Employment timeline, newest first. Titles are the ones on the employment
-// record (the CV), not the public positioning title used in the hero.
+// Employment timeline, newest first. The job titles are set by Victor —
+// don't change them without asking (the Projects cards repeat some of them).
 // `now` adds the highlighted "present" date chip.
 export type Role = {
   role: string;

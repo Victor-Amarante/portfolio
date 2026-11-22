@@ -9,7 +9,7 @@ Victor Amarante's personal portfolio site — a single-page site (English) prese
 **The visual language is specified in `DESIGN_SYSTEM.md`** (premium minimalist, pearl-white + blue, soft glassmorphism, spatial accents). Read it before any visual change; `app/globals.css` implements its tokens.
 
 **The content and positioning are specified in `context-system/PROFESSIONAL_POSITIONING.md`**, and the employment facts (titles, dates, metrics) come from the latest résumé, `public/assets/curriculum/CV_VictorAmarante_EN.pdf`. Rules that are easy to break when editing copy:
-- "Senior Software Engineer, AI" is the public title (hero, metadata, footer). The timeline keeps the titles on the employment record (e.g. "Senior AI/ML Engineer" at Getronics) — never relabel historical jobs.
+- "Senior Software Engineer, AI" is the public title (hero, metadata, footer). The job titles in `data/experience.tsx` are set by Victor — don't change them without asking, and keep the `role` lines in `Projects.tsx` consistent with them.
 - Keep scope qualifiers: the banking assistant is *designed for* millions of users (not serving them); Amigo Flow supports *tens of thousands of monthly appointments*; percentages are increases, not percentage points; the 90%+ efficiency gains are *in selected workflows*.
 - Statistics was undergraduate study (internal transfer), not a completed degree; the Information Systems B.Sc. is expected Dec 2026. The SLM research is ongoing — no fine-tuning or distillation results.
 - Enterprise work stays at a non-confidential level; collaborative decisions aren't presented as sole ownership. No "visionary", "frontier", "staff-level" or similar inflation.
@@ -43,7 +43,7 @@ lib/asset.ts          prefixes /public paths with the basePath
 public/assets/        images (img/, img/talks/) and résumé PDFs (curriculum/)
 ```
 
-Order in `app/page.tsx`: skip link → Nav → `<main>` [Hero → Trust marquee → About → Expertise (bento grid, `section-alt`) → Engineering-philosophy panel with the globe → Impact metrics grid → Experience (timeline + "Research, ventures & community", anchor `#research`) → Projects (`section-alt`) → Certifications → Speaking (photo gallery) → Consensus (testimonials, `section-alt`) → Contact (with the dot-wave backdrop)] → Footer. The lightbox is portalled to `<body>` by `Lightbox.tsx`.
+Order in `app/page.tsx`: skip link → Nav → `<main>` [Hero → Trust marquee → About → Expertise (four pillars + "toolkit by domain" panel, `section-alt`) → Engineering-philosophy panel with the globe → Impact metrics grid → Experience (career-journey path + timeline + "Research, ventures & community", anchor `#research`) → Projects (`section-alt`) → Certifications → Speaking (photo gallery) → Consensus (testimonials, `section-alt`) → Contact (with the dot-wave backdrop)] → Footer. The lightbox is portalled to `<body>` by `Lightbox.tsx`.
 
 Sections are server components; anything with state, effects or event handlers is a `"use client"` component nested inside them. Every effect cleans up after itself (listeners, rAF loops, the Three.js renderer) — React StrictMode double-mounts in dev, so a missing cleanup shows up as duplicated canvases/listeners.
 
@@ -67,7 +67,7 @@ Interactive pieces:
 - **Speaking photos & captions:** `data/talks.ts` (the lightbox reads from the same data).
 - **Résumé PDFs:** `data/resumes.ts` — the single list behind both `.cv-menu` dropdowns and the mobile-nav pair. Files live in `public/assets/curriculum/`.
 - **Email/LinkedIn/GitHub/phone:** `data/contact.ts` (Contact section + footer).
-- Smaller lists (hero specialization line + metrics, toolkit marquee, bento cards, philosophy points, impact metrics, projects, certifications, About facts) are constants at the top of their section component. Prose lives directly in the section JSX.
+- Smaller lists (hero specialization line + metrics, toolkit marquee, expertise pillars + toolkit domains, career journey, philosophy points, impact metrics, projects, certifications, About facts) are constants at the top of their section component. Prose lives directly in the section JSX.
 - Impact metrics carry a `ctx` (where the number comes from) and projects a `role` (Victor's part in it) — keep both when adding entries.
 - Page title, description and Open Graph live in `app/layout.tsx`; the schema.org `Person` JSON-LD is in `app/page.tsx` (public title + verified links only; the site URL is `CONTACT.site`).
 - Any URL to a file in `public/` must go through `asset()` from `lib/asset.ts`, otherwise it misses the `/portfolio` basePath.
@@ -87,7 +87,7 @@ Icons come from `lucide-react` and render as `<svg class="lucide lucide-<name> �
 ## Design-system rules applied in the CSS
 
 - Buttons: `.btn` + `.btn-primary` (solid `--action-fill`, no gradient) / `.btn-secondary` (surface + border), `.btn-sm` in the nav; 44–48px tall. Icon-only controls share one 44px style (`.theme-toggle`, `.tstack-arrow`, `.marquee-toggle`, `.lbox-btn`, `.fsocial`).
-- Only interactive things react to hover: static cards (bento, timeline, certs, static projects) don't lift; linked project cards (`a.project-card`) do.
+- Only interactive things react to hover: static cards (expertise pillars, timeline, certs, static projects) don't lift; linked project cards (`a.project-card`) do.
 - `.section-alt` puts a section on `--background-secondary` for rhythm; whitespace is the separator (no gradient rules between sections).
 - Global `:focus-visible` ring (2px `--action`, 4px offset); skip link to `#main`; `scroll-padding-top` clears the fixed nav.
 - `prefers-reduced-motion` disables all animations/transitions and smooth scroll.

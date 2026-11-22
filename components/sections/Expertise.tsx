@@ -1,72 +1,58 @@
 import {
-  Activity, Bot, Brain, Cloud, CodeXml, Database, Server, Users, type LucideIcon,
+  Activity, Bot, Brain, Cloud, CodeXml, Database, Layers, Network, Server, Sigma, Users,
+  type LucideIcon,
 } from "lucide-react";
-import { Fragment } from "react";
 import Reveal from "../Reveal";
 
-// Career journey — phases overlap; the last one is where the work is now.
-const EVOLUTION = [
-  "Statistics & Applied ML",
-  "Intelligent Automation",
-  "Generative AI & Backend Engineering",
-  "Production Agentic Systems",
-  "Enterprise AI Systems Engineering",
+// The four core areas of practice — one line each, meant to be read at a glance.
+const PILLARS: { Icon: LucideIcon; title: string; text: string }[] = [
+  { Icon: Layers, title: "AI Systems Architecture", text: "Models, data and evaluation designed as one system." },
+  { Icon: Server, title: "Backend Engineering", text: "Clean, well-bounded services in Python and TypeScript." },
+  { Icon: Network, title: "Distributed Systems", text: "Microservices, orchestration and tracing across boundaries." },
+  { Icon: Bot, title: "Agentic AI", text: "Multi-agent systems with tools, memory and human review." },
 ];
 
-type Card = { Icon: LucideIcon; title: string; tag?: string; wide?: boolean; text: string; badges: string[] };
-
-// Grouped by the engineering problem each set of skills solves; badges are evidence, not a wall of logos.
-const CARDS: Card[] = [
+// The full toolkit, grouped by domain. Chips only — no prose.
+const DOMAINS: { Icon: LucideIcon; name: string; items: string[] }[] = [
+  {
+    Icon: Sigma,
+    name: "Foundations",
+    items: ["Probability", "Statistics", "Linear Algebra", "Time Series", "Forecasting", "Classification"],
+  },
   {
     Icon: Bot,
-    title: "Agentic AI & LLM Systems",
-    tag: "Current focus",
-    wide: true,
-    text: "Multi-agent orchestration with an orchestrator and specialist services: tool calling, structured outputs, contextual memory and human-in-the-loop checkpoints, connected to enterprise systems through MCP (Model Context Protocol) and A2A (agent-to-agent communication).",
-    badges: ["LangGraph", "LangChain", "Agno", "CrewAI", "MCP servers", "A2A", "ReAct"],
+    name: "Agentic AI & LLMs",
+    items: ["LangGraph", "LangChain", "Agno", "CrewAI", "MCP servers", "A2A", "ReAct", "Tool calling", "Human-in-the-loop"],
   },
   {
     Icon: CodeXml,
-    title: "Software Engineering & System Design",
-    text: "Backend services designed around clear boundaries: layered and hexagonal architectures, Domain-Driven Design, SOLID and clean code.",
-    badges: ["Python", "TypeScript", "FastAPI", "Django", "DDD", "SOLID"],
-  },
-  {
-    Icon: Server,
-    title: "Backend & Distributed Systems",
-    text: "Microservices, REST APIs and service integrations; state machines, event streaming over Server-Sent Events and tracing across service boundaries.",
-    badges: ["Microservices", "REST APIs", "State machines", "SSE"],
-  },
-  {
-    Icon: Brain,
-    title: "AI & ML Engineering",
-    tag: "Where it started",
-    text: "Probability, statistics and linear algebra first; then supervised learning, forecasting, classification, NLP, deep learning and computer vision — YOLO detection and VLM-generated reports.",
-    badges: ["PyTorch", "TensorFlow", "Scikit-learn", "Pandas", "NumPy", "SciPy", "Statsmodels", "spaCy", "LoRA", "YOLO", "VLMs"],
+    name: "Backend & Architecture",
+    items: ["Python", "TypeScript", "FastAPI", "Django", "REST APIs", "Microservices", "SSE", "DDD", "SOLID", "Hexagonal"],
   },
   {
     Icon: Database,
-    title: "Retrieval & Data Systems",
-    text: "RAG and GraphRAG over enterprise data: embeddings, semantic and hybrid search, vector databases, knowledge graphs and LLM-enriched ingestion.",
-    badges: ["PostgreSQL", "pgvector", "MongoDB", "Neo4j", "FAISS", "ChromaDB", "LlamaIndex"],
+    name: "Retrieval & Data",
+    items: ["RAG", "GraphRAG", "PostgreSQL", "pgvector", "MongoDB", "Neo4j", "FAISS", "ChromaDB", "LlamaIndex"],
+  },
+  {
+    Icon: Brain,
+    name: "Machine & Deep Learning",
+    items: ["PyTorch", "TensorFlow", "Scikit-learn", "Pandas", "NumPy", "SciPy", "Statsmodels", "spaCy", "LoRA", "YOLO", "VLMs"],
   },
   {
     Icon: Cloud,
-    title: "Cloud & Production Infrastructure",
-    text: "Containerized services and data pipelines on AWS and GCP, with production monitoring, reliability work and privacy and PII controls.",
-    badges: ["AWS", "GCP", "Azure", "Bedrock", "SageMaker", "Vertex AI", "Docker", "Kubernetes"],
+    name: "Cloud & Infrastructure",
+    items: ["AWS", "GCP", "Azure", "Bedrock", "SageMaker", "Vertex AI", "Docker", "Kubernetes"],
   },
   {
     Icon: Activity,
-    title: "Evaluation & Observability",
-    text: "Prompt versioning, quality gates, distributed tracing and failure analysis — plus token-usage and inference-cost analysis, because quality, latency and cost are design decisions.",
-    badges: ["OpenTelemetry", "LangSmith", "MLflow", "Evals"],
+    name: "Evaluation & Observability",
+    items: ["OpenTelemetry", "LangSmith", "MLflow", "Evals", "Prompt versioning", "Quality gates"],
   },
   {
     Icon: Users,
-    title: "Engineering Delivery",
-    text: "Requirements discovery, stakeholder alignment, technical scoping and architecture decisions, carried through cross-functional delivery to production readiness; mentoring along the way.",
-    badges: ["Discovery", "Technical scoping", "Mentoring"],
+    name: "Engineering Delivery",
+    items: ["Requirements discovery", "Technical scoping", "Architecture decisions", "Mentoring"],
   },
 ];
 
@@ -81,54 +67,45 @@ export default function Expertise() {
             <br />
             <span className="text-gradient">specialized in AI</span>
           </h2>
-          <p>
-            My work connects AI capabilities with the software, infrastructure and engineering
-            decisions needed to make them reliable in production: interfaces, orchestration, data,
-            security, evaluation, observability, latency and cost.
-          </p>
+          <p>Four areas of practice, grounded in statistics, probability and machine learning.</p>
         </Reveal>
 
-        {/* evolution path */}
-        <Reveal className="reveal">
-          <ol className="evo-path" aria-label="Career journey">
-            {EVOLUTION.map((label, i) => (
-              <Fragment key={label}>
-                {i > 0 && <li className="evo-line" aria-hidden="true"></li>}
-                <li
-                  className={i === EVOLUTION.length - 1 ? "evo-node evo-current" : "evo-node"}
-                  aria-current={i === EVOLUTION.length - 1 ? "step" : undefined}
-                >
-                  <span className="evo-dot"></span>
-                  <span className="evo-num">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="evo-label">{label}</span>
-                </li>
-              </Fragment>
-            ))}
-          </ol>
-        </Reveal>
-
-        <Reveal className="bento-grid stagger-up" id="bentoGrid">
-          {CARDS.map(({ Icon, title, tag, wide, text, badges }) => (
-            <div key={title} className={wide ? "bento-card reveal-child bento-wide bento-feature" : "bento-card reveal-child"}>
-              <div className="bc-header">
-                <div className="bc-icon">
+        <Reveal className="pillars stagger-up">
+          {PILLARS.map(({ Icon, title, text }, i) => (
+            <article key={title} className="pillar reveal-child">
+              <div className="pillar-top">
+                <span className="pillar-icon">
                   <Icon />
-                </div>
-                <span className="bc-header-title">{title}</span>
-                {tag && <span className="bc-header-tag">{tag}</span>}
+                </span>
+                <span className="pillar-num">{String(i + 1).padStart(2, "0")}</span>
               </div>
-              <div className="bc-body">
-                <p>{text}</p>
-                <div className="bento-tags">
-                  {badges.map((b) => (
-                    <span key={b} className="int-badge">
-                      {b}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
+              <h3 className="pillar-title">{title}</h3>
+              <p className="pillar-text">{text}</p>
+            </article>
           ))}
+        </Reveal>
+
+        <Reveal className="domains reveal">
+          <h3 className="domains-head">Toolkit by domain</h3>
+          <dl className="domains-list">
+            {DOMAINS.map(({ Icon, name, items }) => (
+              <div key={name} className="domain-row">
+                <dt className="domain-name">
+                  <Icon />
+                  {name}
+                </dt>
+                <dd>
+                  <ul className="domain-items">
+                    {items.map((item) => (
+                      <li key={item} className="int-badge">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            ))}
+          </dl>
         </Reveal>
       </div>
     </section>
