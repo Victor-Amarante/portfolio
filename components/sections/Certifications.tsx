@@ -15,7 +15,6 @@ const CERTS = [
 export default function Certifications() {
   return (
     <section className="section" id="certs">
-      <div className="section-sep"></div>
       <div className="container">
         <Reveal className="section-header reveal">
           <span className="section-label">Continuous Learning</span>

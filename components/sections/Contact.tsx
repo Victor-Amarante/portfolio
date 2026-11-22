@@ -1,13 +1,14 @@
 import { Mail, Phone } from "lucide-react";
 import Reveal from "../Reveal";
 import CvMenu from "../CvMenu";
+import SiteWave from "../canvas/SiteWave";
 import { GitHubIcon, LinkedInIcon } from "../BrandIcons";
 import { CONTACT } from "@/data/contact";
 
 export default function Contact() {
   return (
     <section id="contact">
-      <div className="contact-glow"></div>
+      <SiteWave />
       <div className="container contact-inner">
         <Reveal className="reveal">
           <span className="section-label">Let&apos;s build something intelligent</span>
@@ -22,11 +23,11 @@ export default function Contact() {
             anything at the frontier — let&apos;s talk.
           </p>
           <div className="contact-actions">
-            <a href={`mailto:${CONTACT.email}`} className="btn-hero-primary">
+            <a href={`mailto:${CONTACT.email}`} className="btn btn-primary">
               <Mail />
               {CONTACT.email}
             </a>
-            <CvMenu label="Download résumé" large buttonClass="btn-hero-ghost" />
+            <CvMenu label="Download résumé" large buttonClass="btn btn-secondary" />
           </div>
           <div className="contact-socials">
             <a href={CONTACT.linkedin} target="_blank" rel="noopener" className="social-link">

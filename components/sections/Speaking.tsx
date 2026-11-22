@@ -5,7 +5,6 @@ import TalksGallery from "../TalksGallery";
 export default function Speaking() {
   return (
     <section className="section" id="speaking">
-      <div className="section-sep"></div>
       <div className="container">
         <Reveal className="section-header reveal">
           <span className="section-label">Beyond the code</span>

@@ -12,13 +12,10 @@ const FACTS = [
 export default function About() {
   return (
     <section className="section" id="about">
-      <div className="section-sep"></div>
       <div className="container about-grid">
         <Reveal className="about-visual reveal-left">
           <div className="about-photo-frame">
-            <div className="about-photo-glow"></div>
             <img src={asset("assets/img/victor.jpg")} alt="Victor Amarante" className="about-photo" />
-            <div className="about-photo-grid"></div>
             <div className="about-badge">
               <span className="about-badge-dot"></span>
               <div>

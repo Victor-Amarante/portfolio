@@ -29,7 +29,7 @@ export default function Footer() {
             </a>
           </div>
           <span className="footer-copy">
-            © <Year buildYear={new Date().getFullYear()} /> Victor Amarante Florentino da Silva
+            © <Year buildYear={new Date().getFullYear()} /> Victor Amarante
           </span>
         </div>
       </div>

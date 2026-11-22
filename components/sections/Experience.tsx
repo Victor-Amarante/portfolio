@@ -5,7 +5,6 @@ import { VENTURES } from "@/data/experience";
 export default function Experience() {
   return (
     <section className="section" id="experience">
-      <div className="section-sep"></div>
       <div className="container">
         <Reveal className="section-header reveal">
           <span className="section-label">Career</span>
@@ -20,6 +19,7 @@ export default function Experience() {
         <Timeline />
 
         {/* Parallel ventures */}
+        <h3 className="ventures-head">In parallel</h3>
         <Reveal className="ventures reveal">
           {VENTURES.map(({ Icon, role, org, meta, text }) => (
             <div key={org} className="venture-card">

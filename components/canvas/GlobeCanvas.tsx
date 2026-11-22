@@ -1,26 +1,28 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { isLight, onThemeChange } from "@/lib/theme";
+import { isLight, onThemeChange, prefersReducedMotion } from "@/lib/theme";
 
 /* ─────────────────────────────────────────────────────────
    GLOBE — Canvas 2D fibonacci-sphere network
-   (adapted from the Omi hero globe, recolored to teal)
+   (adapted from the Omi hero globe, in the brand blues)
+   Renders only while onscreen and the tab is visible; under
+   reduced motion it draws a single still frame instead.
    ───────────────────────────────────────────────────────── */
 
 // canvas can't read CSS tokens, so each theme carries its own palette
 const PALETTES = {
   dark: {
-    NODE: "rgba(45,212,191,0.85)", HL: "#5EEAD4", ARC: "20,184,166",
-    RING: "rgba(20,184,166,0.22)", LINE: "rgba(45,212,191,0.10)",
-    HALO: "rgba(20,184,166,0.13)", HALO_MID: "rgba(20,184,166,0.04)",
-    GLOW: "rgba(20,184,166,0.4)", SOFT: "rgba(20,184,166,0.3)",
+    NODE: "rgba(125,180,255,0.85)", HL: "#6DD9FF", ARC: "109,217,255",
+    RING: "rgba(125,180,255,0.24)", LINE: "rgba(125,180,255,0.12)",
+    HALO: "rgba(52,136,255,0.16)", HALO_MID: "rgba(52,136,255,0.05)",
+    GLOW: "rgba(109,217,255,0.4)", SOFT: "rgba(77,151,255,0.3)",
   },
   light: {
-    NODE: "rgba(13,148,136,0.88)", HL: "#0A6A60", ARC: "13,148,136",
-    RING: "rgba(13,148,136,0.36)", LINE: "rgba(15,118,110,0.22)",
-    HALO: "rgba(13,148,136,0.10)", HALO_MID: "rgba(13,148,136,0.03)",
-    GLOW: "rgba(13,148,136,0.42)", SOFT: "rgba(13,148,136,0.32)",
+    NODE: "rgba(52,136,255,0.82)", HL: "#005FCC", ARC: "52,136,255",
+    RING: "rgba(52,136,255,0.3)", LINE: "rgba(0,95,204,0.13)",
+    HALO: "rgba(52,136,255,0.12)", HALO_MID: "rgba(109,217,255,0.05)",
+    GLOW: "rgba(109,217,255,0.45)", SOFT: "rgba(52,136,255,0.25)",
   },
 };
 
@@ -33,8 +35,12 @@ export default function GlobeCanvas() {
     if (!canvas || !ctx) return;
     let width = 0, height = 0;
 
+    const still = prefersReducedMotion();
     let P = PALETTES[isLight() ? "light" : "dark"];
-    const unsubscribe = onThemeChange((light) => { P = PALETTES[light ? "light" : "dark"]; });
+    const unsubscribe = onThemeChange((light) => {
+      P = PALETTES[light ? "light" : "dark"];
+      if (still) renderGlobe();
+    });
 
     const globeNodes: { x: number; y: number; z: number; baseRadius: number; hl: boolean }[] = [];
     const arcs: { n1: number; n2: number; progress: number; speed: number }[] = [];
@@ -68,12 +74,12 @@ export default function GlobeCanvas() {
       canvas.width = width * dpr; canvas.height = height * dpr;
       canvas.style.width = width + "px"; canvas.style.height = height + "px";
       ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.scale(dpr, dpr);
+      if (still) renderGlobe();
     };
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
 
     let angleY = 0; const angleX = 0.2;
     let raf = 0;
+    let running = false;
     const renderGlobe = () => {
       ctx.clearRect(0, 0, width, height);
       angleY += 0.002;
@@ -179,12 +185,29 @@ export default function GlobeCanvas() {
         }
       }
       ctx.globalAlpha = 1;
-      raf = requestAnimationFrame(renderGlobe);
+      if (running) raf = requestAnimationFrame(renderGlobe);
     };
-    renderGlobe();
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    // animate only while it can be seen
+    let onscreen = false;
+    const sync = () => {
+      const should = !still && onscreen && !document.hidden;
+      if (should && !running) { running = true; raf = requestAnimationFrame(renderGlobe); }
+      else if (!should && running) { running = false; cancelAnimationFrame(raf); }
+    };
+    const io = new IntersectionObserver(([entry]) => { onscreen = entry.isIntersecting; sync(); });
+    io.observe(canvas);
+    document.addEventListener("visibilitychange", sync);
+    if (still) renderGlobe();
 
     return () => {
+      running = false;
       cancelAnimationFrame(raf);
+      io.disconnect();
+      document.removeEventListener("visibilitychange", sync);
       window.removeEventListener("resize", resizeCanvas);
       unsubscribe();
     };

@@ -3,12 +3,11 @@ import Testimonials from "../Testimonials";
 
 export default function Consensus() {
   return (
-    <section id="consensus">
-      <div className="section-sep"></div>
+    <section className="section section-alt" id="consensus">
       <div className="consensus-inner container">
         <Reveal className="section-header reveal">
           <span className="section-label">
-            <span className="pulse-dot"></span>Consensus
+            Consensus
           </span>
           <h2>
             The people I&apos;ve <span className="text-gradient">built with</span>

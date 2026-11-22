@@ -1,19 +1,20 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { isLight, onThemeChange } from "@/lib/theme";
+import { isLight, onThemeChange, prefersReducedMotion } from "@/lib/theme";
 
 /* ─────────────────────────────────────────────────────────
-   WAVE — global animated dot-grid backdrop (Three.js)
-   Fixed behind every section; hero & globe cover it with an
-   opaque background so it only shows on the sections between.
-   Three is code-split and only fetched once this mounts, and
+   WAVE — animated dot-grid backdrop (Three.js) behind the
+   Contact section, the page's closing showcase. Reading
+   sections stay on plain pearl, per the design system.
+   Three is code-split and only fetched once this mounts; it
+   renders only while onscreen and the tab is visible, and is
    skipped entirely when the visitor prefers reduced motion.
    ───────────────────────────────────────────────────────── */
 
-const DOT = { dark: 0x2dd4bf, light: 0x0d9488 };
+const DOT = { dark: 0x7db4ff, light: 0x3488ff };
 // dots need more presence against a light page than a black one
-const ALPHA = { dark: 0.55, light: 0.62 };
+const ALPHA = { dark: 0.55, light: 0.5 };
 
 export default function SiteWave() {
   const ref = useRef<HTMLDivElement>(null);
@@ -21,7 +22,7 @@ export default function SiteWave() {
   useEffect(() => {
     const container = ref.current;
     if (!container) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (prefersReducedMotion()) return;
 
     let cancelled = false;
     let teardown = () => {};
@@ -75,8 +76,9 @@ export default function SiteWave() {
 
       let count = 0;
       let raf = 0;
+      let running = false;
       const render = () => {
-        raf = requestAnimationFrame(render);
+        if (running) raf = requestAnimationFrame(render);
         const pos = geo.attributes.position.array as Float32Array;
         const sc = geo.attributes.scale.array as Float32Array;
         let p = 0, s = 0;
@@ -92,7 +94,17 @@ export default function SiteWave() {
         renderer.render(scene, camera);
         count += 0.04;
       };
-      render();
+
+      // animate only while it can be seen
+      let onscreen = false;
+      const sync = () => {
+        const should = onscreen && !document.hidden;
+        if (should && !running) { running = true; render(); }
+        else if (!should && running) { running = false; cancelAnimationFrame(raf); }
+      };
+      const io = new IntersectionObserver(([entry]) => { onscreen = entry.isIntersecting; sync(); });
+      io.observe(container);
+      document.addEventListener("visibilitychange", sync);
 
       const onResize = () => {
         camera.aspect = container.clientWidth / container.clientHeight;
@@ -102,7 +114,10 @@ export default function SiteWave() {
       window.addEventListener("resize", onResize);
 
       teardown = () => {
+        running = false;
         cancelAnimationFrame(raf);
+        io.disconnect();
+        document.removeEventListener("visibilitychange", sync);
         window.removeEventListener("resize", onResize);
         unsubscribe();
         geo.dispose();

@@ -70,8 +70,7 @@ const CARDS: Card[] = [
 
 export default function Expertise() {
   return (
-    <section className="section" id="expertise">
-      <div className="section-sep"></div>
+    <section className="section section-alt" id="expertise">
       <div className="container">
         <Reveal className="section-header reveal">
           <span className="section-label">Core Expertise</span>
@@ -88,26 +87,27 @@ export default function Expertise() {
         </Reveal>
 
         {/* evolution path */}
-        <Reveal className="evo-path reveal">
-          {EVOLUTION.map((label, i) => (
-            <Fragment key={label}>
-              {i > 0 && <div className="evo-line"></div>}
-              <div className={i === EVOLUTION.length - 1 ? "evo-node evo-current" : "evo-node"}>
-                <span className="evo-dot"></span>
-                <span className="evo-num">{String(i + 1).padStart(2, "0")}</span>
-                <span className="evo-label">{label}</span>
-              </div>
-            </Fragment>
-          ))}
+        <Reveal className="reveal">
+          <ol className="evo-path" aria-label="Career progression">
+            {EVOLUTION.map((label, i) => (
+              <Fragment key={label}>
+                {i > 0 && <li className="evo-line" aria-hidden="true"></li>}
+                <li
+                  className={i === EVOLUTION.length - 1 ? "evo-node evo-current" : "evo-node"}
+                  aria-current={i === EVOLUTION.length - 1 ? "step" : undefined}
+                >
+                  <span className="evo-dot"></span>
+                  <span className="evo-num">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="evo-label">{label}</span>
+                </li>
+              </Fragment>
+            ))}
+          </ol>
         </Reveal>
 
         <Reveal className="bento-grid stagger-up" id="bentoGrid">
           {CARDS.map(({ Icon, title, tag, wide, text, badges }) => (
-            <div key={title} className={wide ? "bento-card reveal-child bento-wide" : "bento-card reveal-child"}>
-              <div className="bc-grid"></div>
-              <div className="bc-shimmer"></div>
-              <div className="bc-corner bc-corner-tl"></div>
-              <div className="bc-corner bc-corner-br"></div>
+            <div key={title} className={wide ? "bento-card reveal-child bento-wide bento-feature" : "bento-card reveal-child"}>
               <div className="bc-header">
                 <div className="bc-icon">
                   <Icon />

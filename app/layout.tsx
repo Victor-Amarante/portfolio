@@ -1,17 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter } from "next/font/google";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
+// only the weights the design system uses: 400 body, 500 labels, 600 headings
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600"],
   variable: "--font-inter",
-});
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600"],
-  variable: "--font-outfit",
 });
 
 export const metadata: Metadata = {
@@ -23,12 +19,13 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#f7f9fe",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    // data-theme is set by the inline script before hydration, hence the warning suppression
-    <html lang="en" className={`${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
+    // the inline script sets data-theme / class="js" before hydration, hence the warning suppression
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
         {/* set the theme before first paint so there's no flash of the wrong one */}
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />

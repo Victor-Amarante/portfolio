@@ -97,11 +97,10 @@ const PROJECTS: Project[] = [
 function ProjectBody({ project, index }: { project: Project; index: number }) {
   return (
     <>
-      <div className="pc-grid"></div>
       <div className="project-top">
         <div className="project-index">{String(index + 1).padStart(2, "0")}</div>
         {project.flag && <span className="project-flag">{project.flag}</span>}
-        {project.href && <ArrowUpRight className="project-arrow" />}
+        {project.href && <ArrowUpRight className="project-arrow" aria-hidden="true" />}
       </div>
       <h3 className="project-title">{project.title}</h3>
       <p className="project-sub">{project.sub}</p>
@@ -113,14 +112,14 @@ function ProjectBody({ project, index }: { project: Project; index: number }) {
           </span>
         ))}
       </div>
+      {project.href && <span className="project-link-label">View source on GitHub</span>}
     </>
   );
 }
 
 export default function Projects() {
   return (
-    <section className="section" id="projects">
-      <div className="section-sep"></div>
+    <section className="section section-alt" id="projects">
       <div className="container">
         <Reveal className="section-header reveal">
           <span className="section-label">Selected Projects</span>

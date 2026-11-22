@@ -7,20 +7,19 @@ const METRICS = [
   { val: "1st", label: "Place · PoloTec DemoDay 2024" },
 ];
 
+// Impact at a glance — a still, scannable grid (it used to be a marquee).
 export default function Metrics() {
   return (
-    <section id="metrics">
-      <div className="metrics-wrap">
-        <div className="metrics-track" id="metricsTrack">
-          {/* rendered twice so the marquee loops seamlessly */}
-          {[...METRICS, ...METRICS].map((m, i) => (
-            <div key={i} className="metric-pill">
-              <div className="metric-dot"></div>
+    <section id="metrics" aria-label="Impact metrics">
+      <div className="container">
+        <ul className="metrics-grid">
+          {METRICS.map((m) => (
+            <li key={m.label} className="metric">
               <span className="metric-val">{m.val}</span>
               <span className="metric-label">{m.label}</span>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

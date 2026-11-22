@@ -1,4 +1,3 @@
-import SiteWave from "@/components/canvas/SiteWave";
 import Nav from "@/components/Nav";
 import Hero from "@/components/sections/Hero";
 import Trust from "@/components/sections/Trust";
@@ -17,21 +16,24 @@ import Footer from "@/components/sections/Footer";
 export default function Home() {
   return (
     <>
-      {/* global animated dot-wave backdrop (hidden under hero & globe) */}
-      <SiteWave />
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <Nav />
-      <Hero />
-      <Trust />
-      <About />
-      <Expertise />
-      <GlobeSection />
-      <Metrics />
-      <Experience />
-      <Projects />
-      <Certifications />
-      <Speaking />
-      <Consensus />
-      <Contact />
+      <main id="main">
+        <Hero />
+        <Trust />
+        <About />
+        <Expertise />
+        <GlobeSection />
+        <Metrics />
+        <Experience />
+        <Projects />
+        <Certifications />
+        <Speaking />
+        <Consensus />
+        <Contact />
+      </main>
       <Footer />
     </>
   );
