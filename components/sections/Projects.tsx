@@ -18,6 +18,21 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
+    title: "Card-Services AI Assistant",
+    flag: "Enterprise · Current",
+    role: "Senior Software Engineer, AI · Getronics at Banco do Brasil",
+    sub: "A banking assistant designed for millions of users",
+    desc: (
+      <>
+        An orchestrator and specialist services run as independent microservices, integrated with
+        banking systems over REST, MCP and A2A. My work spans the architecture and implementation,
+        PII and input/output safeguards, and failure diagnosis with OpenTelemetry — weighing response
+        quality against latency, token consumption and inference cost.
+      </>
+    ),
+    tags: ["Multi-Agent", "Microservices", "MCP", "A2A", "OpenTelemetry"],
+  },
+  {
     title: "Amigo Flow",
     flag: "Production",
     role: "Led engineering · Amigo Tech",
@@ -33,22 +48,7 @@ const PROJECTS: Project[] = [
       </>
     ),
     tags: ["Multi-Agent", "RAG", "LangGraph", "LangSmith", "FastAPI"],
-  },
-  {
-    title: "Card-Services AI Assistant",
-    flag: "Enterprise · Current",
-    role: "Senior Software Engineer, AI · Getronics at Banco do Brasil",
-    sub: "A banking assistant designed for millions of users",
-    desc: (
-      <>
-        An orchestrator and specialist services run as independent microservices, integrated with
-        banking systems over REST, MCP and A2A. My work spans the architecture and implementation,
-        PII and input/output safeguards, and failure diagnosis with OpenTelemetry — weighing response
-        quality against latency, token consumption and inference cost.
-      </>
-    ),
-    tags: ["Multi-Agent", "Microservices", "MCP", "A2A", "OpenTelemetry"],
-  },
+  },  
   {
     title: "Zup SDD Agents",
     flag: "Research",
@@ -80,20 +80,6 @@ const PROJECTS: Project[] = [
       </>
     ),
     tags: ["RAG", "GraphRAG", "pgvector", "Neo4j", "Bedrock", "AWS"],
-  },
-  {
-    title: "Dental X-Ray Analysis",
-    flag: "Computer Vision",
-    role: "End-to-end build · Amigo Tech",
-    sub: "From annotated images to structured reports",
-    desc: (
-      <>
-        An applied deep-learning pipeline built end to end: data annotation, YOLO object-detection
-        training, and a vision-language model that turns the detections into structured reports in
-        natural language.
-      </>
-    ),
-    tags: ["YOLO", "VLM", "Deep Learning", "Data Annotation"],
   },
   {
     title: "Redduo.AI",
