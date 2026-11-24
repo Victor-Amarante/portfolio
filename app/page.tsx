@@ -1,13 +1,11 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/sections/Hero";
-import Trust from "@/components/sections/Trust";
+import Now from "@/components/sections/Now";
 import About from "@/components/sections/About";
 import Expertise from "@/components/sections/Expertise";
-import GlobeSection from "@/components/sections/GlobeSection";
-import Metrics from "@/components/sections/Metrics";
+import Philosophy from "@/components/sections/Philosophy";
 import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
-import Certifications from "@/components/sections/Certifications";
 import Speaking from "@/components/sections/Speaking";
 import Consensus from "@/components/sections/Consensus";
 import Contact from "@/components/sections/Contact";
@@ -43,14 +41,12 @@ export default function Home() {
       <Nav />
       <main id="main">
         <Hero />
-        <Trust />
+        <Now />
         <About />
         <Expertise />
-        <GlobeSection />
-        <Metrics />
+        <Philosophy />
         <Experience />
         <Projects />
-        <Certifications />
         <Speaking />
         <Consensus />
         <Contact />

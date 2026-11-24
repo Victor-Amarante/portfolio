@@ -1,59 +1,40 @@
-import {
-  Activity, Bot, Brain, Cloud, CodeXml, Database, Layers, Network, Server, Sigma, Users,
-  type LucideIcon,
-} from "lucide-react";
 import Reveal from "../Reveal";
 
-// The four core areas of practice — one line each, meant to be read at a glance.
-const PILLARS: { Icon: LucideIcon; title: string; text: string }[] = [
-  { Icon: Layers, title: "AI Systems Architecture", text: "Models, data and evaluation designed as one system." },
-  { Icon: Server, title: "Backend Engineering", text: "Clean, well-bounded services in Python and TypeScript." },
-  { Icon: Network, title: "Distributed Systems", text: "Microservices, orchestration and tracing across boundaries." },
-  { Icon: Bot, title: "Agentic AI", text: "Multi-agent systems with tools, memory and human review." },
+// The four core areas of practice, each with where it was actually done.
+// `seen` links point at project ids in Projects.tsx.
+const PILLARS: { title: string; text: string; seen: [string, string][] }[] = [
+  {
+    title: "AI Systems Architecture",
+    text: "Models, data and evaluation designed as one system.",
+    seen: [["Card-services assistant", "#work-card-services"], ["Amigo Flow", "#work-amigo-flow"]],
+  },
+  {
+    title: "Backend Engineering",
+    text: "Clean, well-bounded services in Python and TypeScript.",
+    seen: [["Retrieval at C.E.S.A.R", "#work-retrieval"], ["Redduo.AI", "#work-redduo"]],
+  },
+  {
+    title: "Distributed Systems",
+    text: "Microservices, orchestration and tracing across boundaries.",
+    seen: [["Card-services assistant", "#work-card-services"]],
+  },
+  {
+    title: "Agentic AI",
+    text: "Multi-agent systems with tools, memory and human review.",
+    seen: [["Amigo Flow", "#work-amigo-flow"], ["Zup SDD Agents", "#work-zup-sdd"]],
+  },
 ];
 
-// The full toolkit, grouped by domain. Chips only — no prose.
-const DOMAINS: { Icon: LucideIcon; name: string; items: string[] }[] = [
-  {
-    Icon: Sigma,
-    name: "Foundations",
-    items: ["Probability", "Statistics", "Linear Algebra", "Time Series", "Forecasting", "Classification"],
-  },
-  {
-    Icon: Bot,
-    name: "Agentic AI & LLMs",
-    items: ["LangGraph", "LangChain", "Agno", "CrewAI", "MCP servers", "A2A", "ReAct", "Tool calling", "Human-in-the-loop"],
-  },
-  {
-    Icon: CodeXml,
-    name: "Backend & Architecture",
-    items: ["Python", "TypeScript", "FastAPI", "Django", "REST APIs", "Microservices", "SSE", "DDD", "SOLID", "Hexagonal"],
-  },
-  {
-    Icon: Database,
-    name: "Retrieval & Data",
-    items: ["RAG", "GraphRAG", "PostgreSQL", "pgvector", "MongoDB", "Neo4j", "FAISS", "ChromaDB", "LlamaIndex"],
-  },
-  {
-    Icon: Brain,
-    name: "Machine & Deep Learning",
-    items: ["PyTorch", "TensorFlow", "Scikit-learn", "Pandas", "NumPy", "SciPy", "Statsmodels", "spaCy", "LoRA", "YOLO", "VLMs"],
-  },
-  {
-    Icon: Cloud,
-    name: "Cloud & Infrastructure",
-    items: ["AWS", "GCP", "Azure", "Bedrock", "SageMaker", "Vertex AI", "Docker", "Kubernetes"],
-  },
-  {
-    Icon: Activity,
-    name: "Evaluation & Observability",
-    items: ["OpenTelemetry", "LangSmith", "MLflow", "Evals", "Prompt versioning", "Quality gates"],
-  },
-  {
-    Icon: Users,
-    name: "Engineering Delivery",
-    items: ["Requirements discovery", "Technical scoping", "Architecture decisions", "Mentoring"],
-  },
+// The full toolkit, grouped by domain — an index, not a wall of badges.
+const DOMAINS: { name: string; items: string[] }[] = [
+  { name: "Foundations", items: ["Probability", "Statistics", "Linear Algebra", "Time Series", "Forecasting", "Classification"] },
+  { name: "Agentic AI & LLMs", items: ["LangGraph", "LangChain", "Agno", "CrewAI", "MCP servers", "A2A", "ReAct", "Tool calling", "Human-in-the-loop"] },
+  { name: "Backend & Architecture", items: ["Python", "TypeScript", "FastAPI", "Django", "REST APIs", "Microservices", "SSE", "DDD", "SOLID", "Hexagonal"] },
+  { name: "Retrieval & Data", items: ["RAG", "GraphRAG", "PostgreSQL", "pgvector", "MongoDB", "Neo4j", "FAISS", "ChromaDB", "LlamaIndex"] },
+  { name: "Machine & Deep Learning", items: ["PyTorch", "TensorFlow", "Scikit-learn", "Pandas", "NumPy", "SciPy", "Statsmodels", "spaCy", "LoRA", "YOLO", "VLMs"] },
+  { name: "Cloud & Infrastructure", items: ["AWS", "GCP", "Azure", "Bedrock", "SageMaker", "Vertex AI", "Docker", "Kubernetes"] },
+  { name: "Evaluation & Observability", items: ["OpenTelemetry", "LangSmith", "MLflow", "Evals", "Prompt versioning", "Quality gates"] },
+  { name: "Engineering Delivery", items: ["Requirements discovery", "Technical scoping", "Architecture decisions", "Mentoring"] },
 ];
 
 export default function Expertise() {
@@ -61,48 +42,38 @@ export default function Expertise() {
     <section className="section section-alt" id="expertise">
       <div className="container">
         <Reveal className="section-header reveal">
-          <span className="section-label">Core Expertise</span>
+          <span className="section-label">Core expertise</span>
           <h2>
-            Software engineering,
-            <br />
-            <span className="text-gradient">specialized in AI</span>
+            Software engineering, <span className="h-soft">with AI as the specialty.</span>
           </h2>
-          <p>Four areas of practice, grounded in statistics, probability and machine learning.</p>
+          <p>Four areas of practice, grounded in statistics, probability and machine learning — and where each one shows up in the work.</p>
         </Reveal>
 
-        <Reveal className="pillars stagger-up">
-          {PILLARS.map(({ Icon, title, text }, i) => (
-            <article key={title} className="pillar reveal-child">
-              <div className="pillar-top">
-                <span className="pillar-icon">
-                  <Icon />
-                </span>
-                <span className="pillar-num">{String(i + 1).padStart(2, "0")}</span>
-              </div>
-              <h3 className="pillar-title">{title}</h3>
-              <p className="pillar-text">{text}</p>
+        <Reveal className="practice stagger-up">
+          {PILLARS.map(({ title, text, seen }, i) => (
+            <article key={title} className="practice-row reveal-child">
+              <span className="practice-num">{String(i + 1).padStart(2, "0")}</span>
+              <h3 className="practice-title">{title}</h3>
+              <p className="practice-text">{text}</p>
+              <p className="practice-seen">
+                <span>Seen in</span>
+                {seen.map(([label, href]) => (
+                  <a key={href} href={href}>
+                    {label}
+                  </a>
+                ))}
+              </p>
             </article>
           ))}
         </Reveal>
 
-        <Reveal className="domains reveal">
-          <h3 className="domains-head">Toolkit by domain</h3>
-          <dl className="domains-list">
-            {DOMAINS.map(({ Icon, name, items }) => (
-              <div key={name} className="domain-row">
-                <dt className="domain-name">
-                  <Icon />
-                  {name}
-                </dt>
-                <dd>
-                  <ul className="domain-items">
-                    {items.map((item) => (
-                      <li key={item} className="int-badge">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </dd>
+        <Reveal className="toolkit reveal">
+          <h3 className="toolkit-head">Toolkit, by domain</h3>
+          <dl className="toolkit-list">
+            {DOMAINS.map(({ name, items }) => (
+              <div key={name} className="toolkit-row">
+                <dt>{name}</dt>
+                <dd>{items.join(" · ")}</dd>
               </div>
             ))}
           </dl>

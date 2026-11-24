@@ -13,9 +13,8 @@ export default function Contact() {
         <Reveal className="reveal">
           <span className="section-label">Get in touch</span>
           <h2 className="contact-title">
-            Let&apos;s build reliable
-            <br />
-            <span className="text-gradient">AI-powered software.</span>
+            Putting AI into real software?{" "}
+            <span className="h-soft">I&apos;d like to hear about it.</span>
           </h2>
           <p className="contact-sub">
             I&apos;m always open to conversations about software architecture, backend engineering,

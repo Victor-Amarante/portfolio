@@ -2,11 +2,15 @@ import type { ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 import Reveal from "../Reveal";
 
-// Each card is a short case study: what it is (`sub`), Victor's part in it
+// Each row is a short case study: what it is (`sub`), Victor's part in it
 // (`role`), then contribution and outcome (`desc`). `flag` marks internal
-// work (rendered as a static card); `href` turns the card into an outbound
-// link with an arrow instead. Enterprise work stays at a non-confidential level.
+// work; `href` turns the row into an outbound link with an arrow, labelled
+// with where it goes (GitHub, or the company/product site's domain — not
+// necessarily the project itself). `id` is the anchor the Expertise section links
+// to. `ratios` draws before/after bars — only for measured increases, with
+// the baseline at 1. Enterprise work stays at a non-confidential level.
 type Project = {
+  id: string;
   title: string;
   role: string;
   sub: string;
@@ -14,12 +18,15 @@ type Project = {
   tags: string[];
   flag?: string;
   href?: string;
+  ratios?: { label: string; value: number; text: string }[];
 };
 
 const PROJECTS: Project[] = [
   {
+    id: "card-services",
     title: "Card-Services AI Assistant",
     flag: "Enterprise · Current",
+    href: "https://www.bb.com.br/site/",
     role: "Senior Software Engineer, AI · Getronics at Banco do Brasil",
     sub: "A banking assistant designed for millions of users",
     desc: (
@@ -33,8 +40,10 @@ const PROJECTS: Project[] = [
     tags: ["Multi-Agent", "Microservices", "MCP", "A2A", "OpenTelemetry"],
   },
   {
+    id: "amigo-flow",
     title: "Amigo Flow",
     flag: "Production",
+    href: "https://www.amigotech.com.br/produtos/amigo-flow",
     role: "Led engineering · Amigo Tech",
     sub: "Multi-agent RAG system for the patient journey",
     desc: (
@@ -48,10 +57,17 @@ const PROJECTS: Project[] = [
       </>
     ),
     tags: ["Multi-Agent", "RAG", "LangGraph", "LangSmith", "FastAPI"],
-  },  
+    ratios: [
+      { label: "Automated scheduling", value: 7.5, text: "7.5×" },
+      // "more than 200%" — drawn at the floor, 3× the baseline
+      { label: "Confirmations", value: 3, text: "+200%" },
+    ],
+  },
   {
+    id: "zup-sdd",
     title: "Zup SDD Agents",
     flag: "Research",
+    href: "https://github.com/athospugliese/cin-zup-agents",
     role: "Architect · CIn/UFPE with Zup Innovation",
     sub: "Agentic software engineering, from user story to committed code",
     desc: (
@@ -67,8 +83,10 @@ const PROJECTS: Project[] = [
     tags: ["LangGraph", "SSE", "Human-in-the-loop", "SLMs", "LoRA", "Multi-Agent"],
   },
   {
+    id: "retrieval",
     title: "Enterprise Retrieval & GraphRAG",
     flag: "Enterprise",
+    href: "https://www.cesar.org.br/",
     role: "AI Engineer · C.E.S.A.R",
     sub: "Retrieval architectures over siloed enterprise data",
     desc: (
@@ -82,6 +100,7 @@ const PROJECTS: Project[] = [
     tags: ["RAG", "GraphRAG", "pgvector", "Neo4j", "Bedrock", "AWS"],
   },
   {
+    id: "redduo",
     title: "Redduo.AI",
     flag: "1st · PoloTec 2024",
     role: "Co-founder & ML Engineer",
@@ -96,6 +115,7 @@ const PROJECTS: Project[] = [
     tags: ["LLMs", "NLP", "Prompt Engineering", "Evals", "Python"],
   },
   {
+    id: "conecte",
     title: "Conecte.se",
     href: "https://github.com/Victor-Amarante/conecte.se",
     role: "Open source",
@@ -110,6 +130,7 @@ const PROJECTS: Project[] = [
     tags: ["FastAPI", "LangChain", "Groq", "React"],
   },
   {
+    id: "insighttalk",
     title: "InsightTalk.AI",
     href: "https://github.com/Victor-Amarante/ai-agent-data-analysis",
     role: "Open source",
@@ -124,26 +145,53 @@ const PROJECTS: Project[] = [
   },
 ];
 
+function Ratios({ ratios }: { ratios: NonNullable<Project["ratios"]> }) {
+  const max = Math.max(...ratios.map((r) => r.value));
+  return (
+    <dl className="ratios">
+      {ratios.map((r) => (
+        <div key={r.label} className="ratio">
+          <dt>{r.label}</dt>
+          <dd>
+            <span className="ratio-bars" aria-hidden="true">
+              <span className="ratio-before" style={{ width: `${100 / max}%` }}></span>
+              <span className="ratio-after" style={{ width: `${(r.value / max) * 100}%` }}></span>
+            </span>
+            <span className="ratio-val">{r.text}</span>
+          </dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+// "https://www.bb.com.br/site/" → "bb.com.br"; GitHub links just say GitHub
+function linkLabel(href: string) {
+  const host = new URL(href).hostname.replace(/^www\./, "");
+  return host === "github.com" ? "GitHub" : host;
+}
+
 function ProjectBody({ project, index }: { project: Project; index: number }) {
   return (
     <>
-      <div className="project-top">
-        <div className="project-index">{String(index + 1).padStart(2, "0")}</div>
+      <div className="project-meta">
+        <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
         {project.flag && <span className="project-flag">{project.flag}</span>}
-        {project.href && <ArrowUpRight className="project-arrow" aria-hidden="true" />}
+        {project.href && <span className="project-flag">{linkLabel(project.href)}</span>}
       </div>
-      <h3 className="project-title">{project.title}</h3>
-      <p className="project-role">{project.role}</p>
-      <p className="project-sub">{project.sub}</p>
-      <p className="project-desc">{project.desc}</p>
-      <div className="project-tags">
-        {project.tags.map((tag) => (
-          <span key={tag} className="int-badge">
-            {tag}
-          </span>
-        ))}
+      <div className="project-head">
+        <h3 className="project-title">
+          {project.title}
+          {project.href && <ArrowUpRight className="project-arrow" aria-hidden="true" />}
+        </h3>
+        <p className="project-role">{project.role}</p>
       </div>
-      {project.href && <span className="project-link-label">View source on GitHub</span>}
+      <div className="project-body">
+        <p className="project-sub">{project.sub}</p>
+        <p className="project-desc">{project.desc}</p>
+        {project.ratios && <Ratios ratios={project.ratios} />}
+        <p className="project-tags">{project.tags.join(" · ")}</p>
+      </div>
     </>
   );
 }
@@ -153,9 +201,9 @@ export default function Projects() {
     <section className="section section-alt" id="projects">
       <div className="container">
         <Reveal className="section-header reveal">
-          <span className="section-label">Selected Work</span>
+          <span className="section-label">Selected work</span>
           <h2>
-            Systems I&apos;ve built, <span className="text-gradient">and what they changed</span>
+            Systems I&apos;ve built, <span className="h-soft">and what changed after.</span>
           </h2>
           <p>
             Production, enterprise and research work — my part in each, the engineering behind it and
@@ -163,12 +211,13 @@ export default function Projects() {
             is described at a non-confidential level.
           </p>
         </Reveal>
-        <Reveal className="projects-grid stagger-up">
+        <Reveal className="projects-list stagger-up">
           {PROJECTS.map((project, i) =>
             project.href ? (
               <a
-                key={project.title}
-                className="project-card reveal-child"
+                key={project.id}
+                id={`work-${project.id}`}
+                className="project-row reveal-child"
                 href={project.href}
                 target="_blank"
                 rel="noopener"
@@ -176,9 +225,9 @@ export default function Projects() {
                 <ProjectBody project={project} index={i} />
               </a>
             ) : (
-              <div key={project.title} className="project-card project-card-static reveal-child">
+              <article key={project.id} id={`work-${project.id}`} className="project-row reveal-child">
                 <ProjectBody project={project} index={i} />
-              </div>
+              </article>
             )
           )}
         </Reveal>

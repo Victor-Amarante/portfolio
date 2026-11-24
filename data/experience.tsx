@@ -1,12 +1,13 @@
 import type { ReactNode } from "react";
-import { GraduationCap, Microscope, Rocket } from "lucide-react";
 
 // Employment timeline, newest first. The job titles are set by Victor —
 // don't change them without asking (the Projects cards repeat some of them).
-// `now` adds the highlighted "present" date chip.
+// `now` adds the highlighted "present" date chip; `short` labels the row
+// in the career chart.
 export type Role = {
   role: string;
   company: string;
+  short: string;
   date: string;
   now?: boolean;
   desc: ReactNode;
@@ -18,6 +19,7 @@ export const EXPERIENCE: Role[] = [
   {
     role: "Senior Software Engineer, AI",
     company: "Getronics · Remote · Embedded at Banco do Brasil",
+    short: "Getronics",
     date: "May 2026 — Present",
     now: true,
     desc: (
@@ -50,6 +52,7 @@ export const EXPERIENCE: Role[] = [
   {
     role: "AI Engineer",
     company: "Amigo Tech · Recife, Brazil",
+    short: "Amigo Tech",
     date: "Sep 2025 — May 2026",
     desc: (
       <>
@@ -82,6 +85,7 @@ export const EXPERIENCE: Role[] = [
   {
     role: "AI Engineer",
     company: "C.E.S.A.R · Recife, Brazil",
+    short: "C.E.S.A.R",
     date: "Jul 2024 — Sep 2025",
     desc: <>Backend services and retrieval architectures that brought generative AI into client systems.</>,
     points: [
@@ -108,6 +112,7 @@ export const EXPERIENCE: Role[] = [
   {
     role: "Software Engineer (AI & Data)",
     company: "Queiroz Cavalcanti Advocacia · Recife",
+    short: "Queiroz Cavalcanti",
     date: "Nov 2022 — Jun 2024",
     desc: <>Software, data and ML applied to legal operations — where building software became part of the daily work.</>,
     points: [
@@ -134,6 +139,7 @@ export const EXPERIENCE: Role[] = [
   {
     role: "Data Scientist",
     company: "Fisher Consultoria Estatística · Recife",
+    short: "Fisher Consultoria",
     date: "Jul 2021 — Jul 2023",
     desc: <>Where it started: statistical consulting, from formulating the problem to explaining the result.</>,
     points: [
@@ -149,9 +155,10 @@ export const EXPERIENCE: Role[] = [
 ];
 
 // Research, ventures and community, shown under the timeline. `wide` spans the row.
+// `short` is the row label in the career chart (components/CareerChart.tsx).
 export const VENTURES = [
   {
-    Icon: Microscope,
+    short: "CIn/UFPE × Zup",
     role: "AI Researcher",
     org: "CIn/UFPE · Applied research with Zup Innovation",
     meta: "Mar 2026 — Present",
@@ -167,7 +174,7 @@ export const VENTURES = [
     ),
   },
   {
-    Icon: Rocket,
+    short: "Redduo.AI",
     role: "Co-Founder & ML Engineer",
     org: "Redduo.AI",
     meta: "Nov 2023 — Jul 2024",
@@ -179,10 +186,17 @@ export const VENTURES = [
     ),
   },
   {
-    Icon: GraduationCap,
+    short: "LIGIA",
     role: "Co-Founder & Director of Education",
     org: "LIGIA — UFPE Academic AI League",
     meta: "Dec 2024 — Mar 2026",
     text: <>Created ML, NLP and computer-vision learning tracks for 30–40 active members; mentored student leaders.</>,
   },
+];
+
+// Only drawn in the career chart. Statistics was undergraduate study that
+// ended in an internal transfer — not a completed degree; the B.Sc. is expected.
+export const EDUCATION = [
+  { short: "Statistics, UFPE", title: "Undergraduate studies in Statistics", date: "Mar 2020 — Feb 2023" },
+  { short: "Information Systems", title: "B.Sc. Information Systems (expected)", date: "Mar 2023 — Dec 2026", expected: true },
 ];

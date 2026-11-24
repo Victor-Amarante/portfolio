@@ -5,8 +5,8 @@
    direction. Dark only applies once a visitor picks it from the
    nav toggle (persisted in localStorage) — the OS preference is
    deliberately not followed.
-   The two canvases can't read CSS tokens, so they subscribe
-   to the `themechange` event and re-read isLight().
+   The dot-wave canvas can't read CSS tokens, so it subscribes
+   to the `themechange` event and re-reads isLight().
    THEME_INIT_SCRIPT is inlined in <head> by app/layout.tsx so
    there's no flash of the wrong theme before React hydrates; it
    also tags <html> with `js`, which gates the entry animations.

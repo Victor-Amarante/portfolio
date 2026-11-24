@@ -21,14 +21,14 @@ export default function Hero() {
       <div className="container hero-inner">
         <div className="hero-copy">
           <p className="hero-eyebrow">
-            <span className="pulse-dot"></span>
-            Victor Amarante<span className="hero-eyebrow-sep" aria-hidden="true">·</span>
-            <strong>Senior Software Engineer, AI</strong>
+            <strong>Victor Amarante</strong>
+            <span>Senior Software Engineer, AI</span>
+            <span>Recife, Brazil</span>
           </p>
           <h1 className="hero-title">
             Engineering intelligent
             <br />
-            systems <span className="text-gradient">for production.</span>
+            systems for <span className="hero-mark">production.</span>
           </h1>
           <p className="hero-subtitle">
             I design and build reliable, scalable AI-powered software, combining software

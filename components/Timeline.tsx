@@ -70,13 +70,11 @@ export default function Timeline() {
             className={lit[i] ? "tl-marker lit" : "tl-marker"}
             ref={(el) => { markerRefs.current[i] = el; }}
           ></div>
+          <p className={job.now ? "tl-date tl-now" : "tl-date"}>{job.date}</p>
           <div className="tl-card">
             <div className="tl-top">
-              <div>
-                <h3 className="tl-role">{job.role}</h3>
-                <span className="tl-company">{job.company}</span>
-              </div>
-              <span className={job.now ? "tl-date tl-now" : "tl-date"}>{job.date}</span>
+              <h3 className="tl-role">{job.role}</h3>
+              <span className="tl-company">{job.company}</span>
             </div>
             <p className="tl-desc">{job.desc}</p>
             <ul className="tl-points">
@@ -84,13 +82,7 @@ export default function Timeline() {
                 <li key={j}>{point}</li>
               ))}
             </ul>
-            <div className="tl-tags">
-              {job.tags.map((tag) => (
-                <span key={tag} className="int-badge">
-                  {tag}
-                </span>
-              ))}
-            </div>
+            <p className="tl-tags">{job.tags.join(" · ")}</p>
           </div>
         </Reveal>
       ))}

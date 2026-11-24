@@ -9,7 +9,7 @@ export default function Speaking() {
         <Reveal className="section-header reveal">
           <span className="section-label">Beyond the code</span>
           <h2>
-            Teaching what I <span className="text-gradient">build</span>
+            Teaching what I build.
           </h2>
           <p>
             Lectures, workshops and hands-on labs — universities, corporate training rooms and the

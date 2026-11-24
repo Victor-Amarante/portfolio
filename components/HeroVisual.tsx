@@ -1,95 +1,109 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import {
-  Activity, Bot, Cloud, Code, Database, Network, Search, Workflow,
-} from "lucide-react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { prefersReducedMotion } from "@/lib/theme";
 
 /* ─────────────────────────────────────────────────────────
-   HERO VISUAL — decorative spatial scene (styles: "hero visual"
-   in globals.css). Three frosted computational layers stacked
-   isometrically — data, services, agents — with beams rising
-   between them, an orbit in the stack's plane and floating
-   glass chips. Pure CSS 3D; it illustrates the kind of work,
-   it is NOT a diagram of any real system.
-   Ambient loops pause while it's offscreen or the tab is hidden;
-   prefers-reduced-motion freezes it entirely (CSS).
+   HERO VISUAL — an illustrative request trace (styles: "hero
+   visual" in globals.css). One user message travels through
+   guardrails, routing, retrieval, a specialist agent and a tool
+   call, drawn as an OpenTelemetry-style span waterfall that
+   fills in span by span, holds, and starts over.
+   It shows the kind of system and the way I look at one — it is
+   NOT a trace from any real system, and says so on screen.
+   The loop pauses offscreen / in a hidden tab; under reduced
+   motion the finished trace is shown still.
    ───────────────────────────────────────────────────────── */
+type Span = { name: string; note: string; start: number; dur: number; depth: number; kind: string };
+
+const TOTAL = 1840; // ms, the root span
+const SPANS: Span[] = [
+  { name: "POST /chat", note: "", start: 0, dur: TOTAL, depth: 0, kind: "root" },
+  { name: "guardrails.input", note: "PII masked", start: 12, dur: 46, depth: 1, kind: "guard" },
+  { name: "orchestrator.route", note: "→ scheduling", start: 66, dur: 138, depth: 1, kind: "agent" },
+  { name: "retrieval.search", note: "k=8", start: 214, dur: 226, depth: 2, kind: "data" },
+  { name: "agent.scheduling", note: "2 tool calls", start: 452, dur: 1108, depth: 2, kind: "agent" },
+  { name: "tool.find_slots", note: "", start: 640, dur: 304, depth: 3, kind: "data" },
+  { name: "guardrails.output", note: "pass", start: 1574, dur: 58, depth: 1, kind: "guard" },
+  { name: "eval.groundedness", note: "async", start: 1646, dur: 170, depth: 1, kind: "eval" },
+];
+
+const STEP_MS = 420; // one span appears per step
+const HOLD_MS = 4200; // finished trace stays up this long
+const DONE = SPANS.length + 1; // step at which the response line shows
+
+const ms = (n: number) => (n >= 1000 ? `${(n / 1000).toFixed(2)} s` : `${n} ms`);
+
 export default function HeroVisual() {
   const ref = useRef<HTMLDivElement>(null);
-  const [paused, setPaused] = useState(false);
+  const [step, setStep] = useState(DONE); // server render and no-JS: the finished trace
+  const [running, setRunning] = useState(false);
 
+  // only animate while visible
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || prefersReducedMotion()) return;
     let onscreen = true;
-    const sync = () => setPaused(!onscreen || document.hidden);
+    const sync = () => setRunning(onscreen && !document.hidden);
     const io = new IntersectionObserver(([entry]) => {
       onscreen = entry.isIntersecting;
       sync();
     });
     io.observe(el);
     document.addEventListener("visibilitychange", sync);
+    setStep(0);
     return () => {
       io.disconnect();
       document.removeEventListener("visibilitychange", sync);
     };
   }, []);
 
+  useEffect(() => {
+    if (!running) return;
+    const delay = step === 0 ? 600 : step >= DONE ? HOLD_MS : STEP_MS;
+    const t = window.setTimeout(() => setStep((s) => (s >= DONE ? 0 : s + 1)), delay);
+    return () => window.clearTimeout(t);
+  }, [running, step]);
+
   return (
-    <div ref={ref} className="hero-visual" aria-hidden="true" data-paused={paused ? "" : undefined}>
-      <div className="hv-glow"></div>
-      <div className="hv-scene">
-        <div className="hv-stack">
-          {/* data layer */}
-          <div className="hv-layer hv-layer-1">
-            <span className="hv-tile hv-tile-accent"><Database /></span>
-            <span className="hv-tile hv-tile-dot"></span>
-            <span className="hv-tile"><Database /></span>
-            <span className="hv-tile hv-tile-dot"></span>
-            <span className="hv-tile"><Cloud /></span>
-            <span className="hv-tile hv-tile-dot"></span>
-            <span className="hv-tile"><Database /></span>
-            <span className="hv-tile hv-tile-dot"></span>
-            <span className="hv-tile hv-tile-accent"><Database /></span>
-          </div>
-          {/* services / retrieval layer */}
-          <div className="hv-layer hv-layer-2">
-            <span className="hv-tile hv-tile-accent"><Search /></span>
-            <span className="hv-tile"><Code /></span>
-            <span className="hv-tile"><Workflow /></span>
-            <span className="hv-tile hv-tile-accent"><Network /></span>
-          </div>
-          {/* agents layer: orchestrator + specialists */}
-          <div className="hv-layer hv-layer-3">
-            <svg className="hv-links" viewBox="0 0 100 100" preserveAspectRatio="none">
-              <line x1="50" y1="50" x2="15.5" y2="15.5" />
-              <line x1="50" y1="50" x2="84.5" y2="15.5" />
-              <line x1="50" y1="50" x2="15.5" y2="84.5" />
-              <line x1="50" y1="50" x2="84.5" y2="84.5" />
-            </svg>
-            <span className="hv-node hv-node-1"></span>
-            <span className="hv-node hv-node-2"></span>
-            <span className="hv-node hv-node-3"></span>
-            <span className="hv-node hv-node-4"></span>
-            <span className="hv-core"><Bot /></span>
-          </div>
-          <span className="hv-beam hv-beam-1"></span>
-          <span className="hv-beam hv-beam-2"></span>
-          <span className="hv-beam hv-beam-3"></span>
-          <span className="hv-beam hv-beam-4"></span>
-          <div className="hv-orbit"></div>
-          <div className="hv-orbit hv-orbit-2"></div>
+    <div ref={ref} className="hero-visual" aria-hidden="true">
+      <div className="trace">
+        <div className="trace-head">
+          <span className="trace-id">trace 7f3a·c21e</span>
+          <span className={step >= DONE ? "trace-total on" : "trace-total"}>{ms(TOTAL)}</span>
         </div>
-      </div>
-      <div className="hv-chip hv-chip-1">
-        <span className="hv-chip-icon"><Bot /></span>Multi-agent orchestration
-      </div>
-      <div className="hv-chip hv-chip-2">
-        <span className="hv-chip-icon"><Network /></span>RAG · GraphRAG
-      </div>
-      <div className="hv-chip hv-chip-3">
-        <span className="hv-chip-icon"><Activity /></span>Evals &amp; observability
+        <p className="trace-msg trace-msg-in">Can I move my appointment to Friday morning?</p>
+        <ol className="trace-spans">
+          {SPANS.map((s, i) => (
+            <li
+              key={s.name}
+              className={`trace-span trace-${s.kind}${step > i ? " on" : ""}`}
+              style={
+                {
+                  "--depth": s.depth,
+                  "--x": `${(s.start / TOTAL) * 100}%`,
+                  "--w": `${(s.dur / TOTAL) * 100}%`,
+                } as CSSProperties
+              }
+            >
+              <span className="trace-name">
+                {s.name}
+                {s.note && <em>{s.note}</em>}
+              </span>
+              <span className="trace-lane">
+                <span className="trace-bar"></span>
+              </span>
+              <span className="trace-dur">{ms(s.dur)}</span>
+            </li>
+          ))}
+        </ol>
+        <p className={step >= DONE ? "trace-msg trace-msg-out on" : "trace-msg trace-msg-out"}>
+          Done — Friday, 9:30. You&apos;ll get a confirmation shortly.
+        </p>
+        <div className="trace-foot">
+          <span>tokens 2,431 in · 318 out</span>
+          <span>illustrative, not a real system</span>
+        </div>
       </div>
     </div>
   );
