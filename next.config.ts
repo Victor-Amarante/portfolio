@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
-// GitHub Pages serves this repo as a project site at /portfolio. Override with
-// BASE_PATH="" for a root deploy (custom domain) or a local static preview.
-const basePath = process.env.BASE_PATH ?? "/portfolio";
+// Deploy at the root of the custom domain (victoramarante.dev).
+// Override BASE_PATH for deployments under a subdirectory.
+const basePath = process.env.BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {
   output: "export",
