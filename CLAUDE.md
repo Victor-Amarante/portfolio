@@ -33,6 +33,7 @@ Victor Amarante's personal portfolio site — a single-page site (English) prese
 app/layout.tsx        <html>/<head>: metadata, next/font (Inter 400/500/600), anti-flash theme script
 app/page.tsx          composes the sections in order
 app/globals.css       the whole stylesheet (design tokens in :root)
+app/icon.png          favicon (192px) + app/apple-icon.png (180px), resized from the monogram
 components/sections/  one file per page section
 components/canvas/    SiteWave (Three.js)
 components/           shared pieces: HeroVisual, CareerChart, Reveal, Nav, ThemeToggle, CvMenu,
@@ -40,7 +41,7 @@ components/           shared pieces: HeroVisual, CareerChart, Reveal, Nav, Theme
 data/                 content that's rendered from lists (see below)
 lib/theme.ts          theme state helpers + the inline init script
 lib/asset.ts          prefixes /public paths with the basePath
-public/assets/        images (img/, img/talks/) and résumé PDFs (curriculum/)
+public/assets/        images (img/, img/talks/, img/brand/) and résumé PDFs (curriculum/)
 ```
 
 Order in `app/page.tsx`: skip link → Nav → `<main>` [Hero → Now strip → About → Expertise (four practice rows + "toolkit, by domain" index, `section-alt`) → Philosophy (argument + Fig. 1) → Experience (career chart + timeline + "Research, ventures & community", anchor `#research`) → Projects (`section-alt`) → Speaking (photo gallery) → Consensus (testimonials, `section-alt`) → Contact (with the dot-wave backdrop)] → Footer. The lightbox is portalled to `<body>` by `Lightbox.tsx`.
@@ -104,6 +105,7 @@ Icons come from `lucide-react` and render as `<svg class="lucide lucide-<name> �
 ## Conventions worth knowing
 
 - Inter is the only typeface (self-hosted via `next/font/google`, weights 400/500/600), exposed as `--font-inter` on `<html>` and consumed by `--font-sans`. Type sizes come from the `--font-display`/`--font-h1…h4`/`--font-body*` tokens; `--font-display` is capped at 58px so the hero headline's first line fits its column.
+- **Favicon:** the VA monogram master is `public/assets/img/brand/monograma-va.png` (1254px). `app/icon.png` and `app/apple-icon.png` are resized copies (`sips -z 192 192 …` / `sips -z 180 180 …`); Next's file conventions emit the `<link rel="icon">`/`apple-touch-icon` tags with the basePath, so don't add them to `metadata` by hand. Re-export both if the monogram changes.
 - Images use plain `<img>`/`<picture>` (static export, hand-made responsive variants), not `next/image`.
 - **Speaking gallery photos** live in `public/assets/img/talks/` as `<slug>-sm` (700px) and `<slug>-lg` (1600px) in both `.jpg` and `.webp` — generated from the originals with `sips` + `cwebp`. The layout is a justified gallery: each `<figure class="talk">` gets its source aspect ratio as the `--ar` custom property (from `ar` in `data/talks.ts`), and CSS both flex-grows it by that number and applies it as `aspect-ratio`, so every tile in a row lands at the same height with no cropping. Adding a photo = add an entry to a row in `data/talks.ts` with the right `ar`, plus `wide: true` if it's landscape. Row height is `(row width − gaps) / Σar`, so Σ is the size dial: the current rows sum to 3.58 and 3.00, giving ~305px and ~360px tiles. Keep new rows in that Σ3.0–3.6 band — a row of two portraits (Σ1.5) resolves absurdly tall. Below 1024px the rows dissolve (`display: contents`) into one dense 2-column grid where `talk-wide` spans both columns, so array order still decides what comes first.
 - Colours: pearl `#F7F9FE` / ice `#EAF0FA` / white surfaces, Electric Blue `#3488FF` accent, `#005FCC` action blue, Ice Cyan `#6DD9FF` used rarely. Besides the CSS tokens they're hardcoded in the dot-wave palette (`components/canvas/SiteWave.tsx`) and the hero/section atmosphere gradients in `globals.css`, so a rebrand touches both.
